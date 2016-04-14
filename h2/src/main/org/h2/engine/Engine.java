@@ -41,6 +41,10 @@ public class Engine implements SessionFactory {
         }
     }
 
+    public static HashMap<String, Database> getDatabase() {
+        return DATABASES;
+    }
+
     public static Engine getInstance() {
         return INSTANCE;
     }
