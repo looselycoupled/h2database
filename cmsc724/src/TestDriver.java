@@ -6,9 +6,13 @@ import org.h2.engine.Engine;
 import org.h2.engine.Database;
 import org.h2.engine.ConnectionInfo;
 import org.h2.engine.Database;
+import org.h2.engine.Session;
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.h2.table.Table;
 import org.h2.tools.Server;
+import org.h2.result.Row;
+import org.h2.index.Cursor;
+import org.h2.index.Index;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -61,7 +65,8 @@ public class TestDriver
     return DATABASES.get(name);
   }
 
-  public void work(){
+  public void work() throws SQLException {
+
     System.out.println("Databases\n==========");
     for (String key : DATABASES.keySet()) {
       System.out.println("key is " + key);
@@ -70,13 +75,24 @@ public class TestDriver
     System.out.println("\nFetching Database\n==========");
     Database db = getDatabase("mem:school");
     System.out.println(db.toString());
-
+    System.out.println("isMultiVersion: " + db.isMultiVersion());
 
     ArrayList<Table> tables = db.getAllTablesAndViews(false);
     System.out.println("\nTables Found: " + tables.size() + "\n===============");
     for (Table t: tables){
-      System.out.println(t.toString());
+      System.out.println(t.getName());
     }
+
+    System.out.println("\nRows in STUDENTS table\n===============");
+    Table t = db.getTableOrViewByName("STUDENTS").get(0);
+    Session session = db.getSystemSession();
+    Cursor cursor = t.getScanIndex(session).find(session, null, null);
+
+    while (cursor.next()) {
+        Row row = cursor.get();
+        System.out.println(row.toString());
+    }
+
 
   }
 
@@ -89,4 +105,5 @@ public class TestDriver
     TestDriver driver = new TestDriver();
     driver.start();
 	}
+
 }
