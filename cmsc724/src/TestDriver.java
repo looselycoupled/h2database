@@ -45,8 +45,14 @@ public class TestDriver
     JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:school;DB_CLOSE_DELAY=-1", "user", "password");
     Connection conn = ds.getConnection();
 
+    conn.createStatement().executeUpdate("CREATE TABLE classes (id INT PRIMARY KEY, code VARCHAR(20), title VARCHAR(255)) "
+      + "AS SELECT * FROM CSVREAD('data/classes.csv');");
+
     conn.createStatement().executeUpdate("CREATE TABLE students (id INT PRIMARY KEY, name VARCHAR(255)) "
       + "AS SELECT * FROM CSVREAD('data/students.csv');");
+
+    conn.createStatement().executeUpdate("CREATE TABLE registrations (class_id INT, student_id INT, grade VARCHAR(2)) "
+      + "AS SELECT * FROM CSVREAD('data/registrations.csv');");
 
     conn.close();
   }
@@ -66,9 +72,11 @@ public class TestDriver
     System.out.println(db.toString());
 
 
-    // System.out.println("\nFetching Table 'data'\n==========");
-    // ArrayList<Table> tables = db.getTableOrViewByName("data");
-    // System.out.println(tables.get(0).toString());
+    ArrayList<Table> tables = db.getAllTablesAndViews(false);
+    System.out.println("\nTables Found: " + tables.size() + "\n===============");
+    for (Table t: tables){
+      System.out.println(t.toString());
+    }
 
   }
 
