@@ -25,16 +25,6 @@ public class TestDriver
   private Server server;
 
 
-
-  public void startup() throws SQLException {
-    // server = Server.createTcpServer("-tcpPort", "9123", "-tcpAllowOthers");
-    // server.start();
-  }
-
-  public void shutdown() {
-    // server.stop();
-  }
-
   public Database createDatabase() {
     ConnectionInfo ci = new ConnectionInfo("mem:");
     Database db = new Database(ci, null);
@@ -52,11 +42,11 @@ public class TestDriver
   }
 
   public void setupViaJDBC() throws SQLException {
-    JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:foo;DB_CLOSE_DELAY=-1", "user", "password");
+    JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:school;DB_CLOSE_DELAY=-1", "user", "password");
     Connection conn = ds.getConnection();
-    conn.createStatement().executeUpdate("CREATE TABLE data ("
-      + " key VARCHAR(255) PRIMARY KEY,"
-      + " value VARCHAR(1023) )");
+
+    conn.createStatement().executeUpdate("CREATE TABLE students (id INT PRIMARY KEY, name VARCHAR(255)) "
+      + "AS SELECT * FROM CSVREAD('data/students.csv');");
 
     conn.close();
   }
@@ -72,7 +62,7 @@ public class TestDriver
     }
 
     System.out.println("\nFetching Database\n==========");
-    Database db = getDatabase("mem:foo");
+    Database db = getDatabase("mem:school");
     System.out.println(db.toString());
 
 
@@ -83,11 +73,8 @@ public class TestDriver
   }
 
   public void start() throws SQLException {
-    startup();
-    // setup();
     setupViaJDBC();
     work();
-    shutdown();
   }
 
 	public static void main(String[] args) throws SQLException {
