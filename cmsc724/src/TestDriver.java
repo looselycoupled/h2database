@@ -8,11 +8,13 @@ import org.h2.engine.ConnectionInfo;
 import org.h2.engine.Database;
 import org.h2.engine.Session;
 import org.h2.jdbcx.JdbcConnectionPool;
+import org.h2.table.Column;
 import org.h2.table.Table;
 import org.h2.tools.Server;
 import org.h2.result.Row;
 import org.h2.index.Cursor;
 import org.h2.index.Index;
+import org.h2.value.Value;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,27 +25,7 @@ public class TestDriver
 {
 
   private Engine engine = Engine.getInstance();
-
   private HashMap<String, Database> DATABASES = engine.getDatabases();
-
-  private Server server;
-
-
-  public Database createDatabase() {
-    ConnectionInfo ci = new ConnectionInfo("mem:");
-    Database db = new Database(ci, null);
-    return db;
-  }
-
-  public void loadDatabase(Database db) {
-
-  }
-
-  public void setup() throws SQLException {
-    Database db = createDatabase();
-    loadDatabase(db);
-
-  }
 
   public void setupViaJDBC() throws SQLException {
     JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:school;DB_CLOSE_DELAY=-1", "user", "password");
@@ -65,11 +47,36 @@ public class TestDriver
     return DATABASES.get(name);
   }
 
+
+  private void printTableData(Table t, Session session, Cursor cursor) {
+    System.out.println("\nRows in " + t.getName() + " table\n======================");
+
+    // print columns in table
+    Column[] columns = t.getColumns();
+    if (columns.length > 0) {
+      for (Column c: columns) {
+        System.out.print(c.toString() + "\t");
+      }
+      System.out.println();
+    }
+
+    // print rows
+    while (cursor.next()) {
+        Row row = cursor.get();
+        Value[] values = row.getValueList();
+        for (Value v: values) {
+          System.out.print(v.toString() + "\t");
+        }
+        System.out.println();
+    }
+
+  }
+
   public void work() throws SQLException {
 
     System.out.println("Databases\n==========");
     for (String key : DATABASES.keySet()) {
-      System.out.println("key is " + key);
+      System.out.println(key);
     }
 
     System.out.println("\nFetching Database\n==========");
@@ -83,16 +90,12 @@ public class TestDriver
       System.out.println(t.getName());
     }
 
-    System.out.println("\nRows in STUDENTS table\n===============");
-    Table t = db.getTableOrViewByName("STUDENTS").get(0);
+    // Table t = db.getTableOrViewByName("STUDENTS").get(0);
     Session session = db.getSystemSession();
-    Cursor cursor = t.getScanIndex(session).find(session, null, null);
-
-    while (cursor.next()) {
-        Row row = cursor.get();
-        System.out.println(row.toString());
+    for (Table t: tables){
+      Cursor cursor = t.getScanIndex(session).find(session, null, null);
+      printTableData(t, session, cursor);
     }
-
 
   }
 
