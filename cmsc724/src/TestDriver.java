@@ -31,14 +31,14 @@ public class TestDriver
     JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:school;DB_CLOSE_DELAY=-1", "user", "password");
     Connection conn = ds.getConnection();
 
-    conn.createStatement().executeUpdate("CREATE TABLE classes (id INT PRIMARY KEY, code VARCHAR(20), title VARCHAR(255)) "
-      + "AS SELECT * FROM CSVREAD('data/classes.csv');");
+    conn.createStatement().executeUpdate("CREATE TABLE Author (a_id INT PRIMARY KEY, name VARCHAR(255)) "
+      + "AS SELECT * FROM CSVREAD('data/authors.csv');");
 
-    conn.createStatement().executeUpdate("CREATE TABLE students (id INT PRIMARY KEY, name VARCHAR(255)) "
-      + "AS SELECT * FROM CSVREAD('data/students.csv');");
+    conn.createStatement().executeUpdate("CREATE TABLE Publication (p_id INT PRIMARY KEY, title VARCHAR(255)) "
+      + "AS SELECT * FROM CSVREAD('data/publications.csv');");
 
-    conn.createStatement().executeUpdate("CREATE TABLE registrations (class_id INT, student_id INT, grade VARCHAR(2)) "
-      + "AS SELECT * FROM CSVREAD('data/registrations.csv');");
+    conn.createStatement().executeUpdate("CREATE TABLE AuthorPub (a_id INT, p_id INT) "
+      + "AS SELECT * FROM CSVREAD('data/authorpub.csv');");
 
     conn.close();
   }
