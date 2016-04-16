@@ -13,10 +13,25 @@ import java.util.HashMap;
  * as rows in a join table.
  */
 public class Edge {
+    private String label;
     private Row row;
 
-    public Edge(Row row) {
+    public Edge(Row row, String label) {
         this.row = row;
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public Vertex getVertex(String direction) {
+        if (direction.toUpperCase() == "IN" || direction.toUpperCase() == "OUT" || direction.toUpperCase() == "BOTH") {
+            // return the Vertex lazily;
+            return null;
+        } else {
+            throw new IllegalArgumentException("direction must be IN or OUT or BOTH");
+        }
     }
 
     public Value[] getValues() {
