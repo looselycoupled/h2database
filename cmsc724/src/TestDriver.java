@@ -20,6 +20,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import load.PubsLoader;
+import load.SchoolLoader;
+
 
 public class TestDriver
 {
@@ -27,21 +30,6 @@ public class TestDriver
   private Engine engine = Engine.getInstance();
   private HashMap<String, Database> DATABASES = engine.getDatabases();
 
-  public void setupViaJDBC() throws SQLException {
-    JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:school;DB_CLOSE_DELAY=-1", "user", "password");
-    Connection conn = ds.getConnection();
-
-    conn.createStatement().executeUpdate("CREATE TABLE Author (a_id INT PRIMARY KEY, name VARCHAR(255)) "
-      + "AS SELECT * FROM CSVREAD('data/authors.csv');");
-
-    conn.createStatement().executeUpdate("CREATE TABLE Publication (p_id INT PRIMARY KEY, title VARCHAR(255)) "
-      + "AS SELECT * FROM CSVREAD('data/publications.csv');");
-
-    conn.createStatement().executeUpdate("CREATE TABLE AuthorPub (a_id INT, p_id INT) "
-      + "AS SELECT * FROM CSVREAD('data/authorpub.csv');");
-
-    conn.close();
-  }
 
   private Database getDatabase(String name) {
     return DATABASES.get(name);
@@ -79,8 +67,8 @@ public class TestDriver
       System.out.println(key);
     }
 
-    System.out.println("\nFetching Database\n==========");
-    Database db = getDatabase("mem:school");
+    System.out.println("\nFetching First Database Found\n==========");
+    Database db = DATABASES.get(DATABASES.keySet().iterator().next());
     System.out.println(db.toString());
     System.out.println("isMultiVersion: " + db.isMultiVersion());
 
@@ -100,8 +88,10 @@ public class TestDriver
   }
 
   public void start() throws SQLException {
-    setupViaJDBC();
-    work();
+    //   SchoolLoader loader = new SchoolLoader();
+      PubsLoader loader = new PubsLoader();
+      loader.load();
+      work();
   }
 
 	public static void main(String[] args) throws SQLException {
