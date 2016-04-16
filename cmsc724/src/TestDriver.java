@@ -24,6 +24,9 @@ import load.PubsLoader;
 import load.SchoolLoader;
 
 
+/**
+ * Exploratory code for understanding the H2 codebase
+ */
 public class TestDriver
 {
 
@@ -94,9 +97,9 @@ public class TestDriver
       work();
   }
 
-	public static void main(String[] args) throws SQLException {
+  public static void main(String[] args) throws SQLException {
     TestDriver driver = new TestDriver();
     driver.start();
-	}
+  }
 
 }
