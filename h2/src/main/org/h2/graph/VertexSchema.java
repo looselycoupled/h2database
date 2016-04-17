@@ -4,6 +4,7 @@
 
 package org.h2.graph;
 
+import java.util.List;
 import java.util.ArrayList;
 import org.h2.graph.EdgeSchema;
 import org.h2.table.Table;
@@ -15,16 +16,22 @@ import org.h2.table.Table;
  */
 public class VertexSchema {
 
+    private String label;
     public Table sourceTable;
 
-    public ArrayList<EdgeSchema> incomingEdges = new ArrayList<EdgeSchema>();
-    public ArrayList<EdgeSchema> outgoingEdges = new ArrayList<EdgeSchema>();
+    public List<EdgeSchema> incomingEdges = new ArrayList<EdgeSchema>();
+    public List<EdgeSchema> outgoingEdges = new ArrayList<EdgeSchema>();
 
     /**
      * Constructor accepts a reference to the underlying table
      */
-    public VertexSchema(Table sourceTable) {
+    public VertexSchema(Table sourceTable, String label) {
         this.sourceTable = sourceTable;
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
 }
