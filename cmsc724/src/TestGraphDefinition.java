@@ -24,7 +24,7 @@ public class TestGraphDefinition {
 
     private String dbName;
     private Session dbSession;
-    private GraphSchema graphSchema = new GraphSchema();
+    private GraphSchema graphSchema = new GraphSchema("school");
 
     /**
      * Creates database and loads up the school dataset
@@ -38,25 +38,50 @@ public class TestGraphDefinition {
     /**
      * Grabs table/column references and creates appropriate graph schema objects
      */
-    public void loadSchemas() {
+    public void loadSchemas() throws Exception {
         Database db = Engine.getInstance().getDatabases().get(dbName);
         dbSession = db.getSystemSession();
+
         Table tStudents = db.getTableOrViewByName("STUDENTS").get(0);
         Table tClasses = db.getTableOrViewByName("CLASSES").get(0);
         Table tRegistrations = db.getTableOrViewByName("REGISTRATIONS").get(0);
         Table tRooms = db.getTableOrViewByName("ROOMS").get(0);
 
-        VertexSchema vStudentSchema = new VertexSchema(tStudents);
-        VertexSchema vClassSchema = new VertexSchema(tClasses);
-        VertexSchema vRoomSchema = new VertexSchema(tRooms);
-        EdgeSchema vRegistrationSchema = new EdgeSchema(tRegistrations);
+        VertexSchema vStudentSchema = new VertexSchema(tStudents, "student");
+        VertexSchema vClassSchema = new VertexSchema(tClasses, "class");
+        VertexSchema vRoomSchema = new VertexSchema(tRooms, "room");
 
-        graphSchema.vertexSchemas.add(vStudentSchema);
-        graphSchema.vertexSchemas.add(vClassSchema);
-        graphSchema.edgeSchemas.add(vRegistrationSchema);
+        // a simple edge denoting registrations of a student
+        EdgeSchema eRegistrationSchema = new EdgeSchema("registration");
+        eRegistrationSchema.addJoin(
+            tStudents, tStudents.getColumn("ID"),
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+        );
 
-        // TODO: test edge representing multiple joins (ex: student to room)
-        //       after rewriting EdgeSchema
+        // an edge with multiple joins representing rooms a user has had
+        // class in
+        EdgeSchema eHadClassInRoomSchema = new EdgeSchema("hadClassInRoom");
+        eHadClassInRoomSchema.addJoin(
+            tStudents, tStudents.getColumn("ID"),
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+        );
+        eHadClassInRoomSchema.addJoin(
+            tRegistrations, tRegistrations.getColumn("CLASS_ID"),
+            tClasses, tClasses.getColumn("ID")
+        );
+        eHadClassInRoomSchema.addJoin(
+            tClasses, tClasses.getColumn("ROOM_ID"),
+            tRooms, tRooms.getColumn("ID")
+        );
+
+
+        // store all these schemas in the graphSchema object
+        graphSchema.vertexSchemas.put(vStudentSchema.getLabel(), vStudentSchema);
+        graphSchema.vertexSchemas.put(vClassSchema.getLabel(), vClassSchema);
+        graphSchema.vertexSchemas.put(vRoomSchema.getLabel(), vRoomSchema);
+        graphSchema.edgeSchemas.put(eRegistrationSchema.getLabel(), eRegistrationSchema);
+        graphSchema.edgeSchemas.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
+
     }
 
 
@@ -69,6 +94,7 @@ public class TestGraphDefinition {
             testGetAllVertices();
             testGetVerticesByAttribute();
             testGetVertex();
+            testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.getMessage());
         }
@@ -82,10 +108,19 @@ public class TestGraphDefinition {
         // not yet implemented
     }
 
+    /**
+     * Tests the use of an edgeschema which traverses multiple joins.  Start
+     * with the Allen/student Vertex and get Room vertices that can be Found
+     * through the "hadClassInRoom" edge.
+     */
+    public void testEdgeWithMulitpleJoins() throws Exception {
+
+    }
+
     public void testGetAllVertices() throws Exception {
         System.out.println("\nTEST: Get all vertices\n======================");
         List<Vertex> vertices = new ArrayList<Vertex>();
-        for (VertexSchema schema: graphSchema.vertexSchemas) {
+        for (VertexSchema schema: graphSchema.vertexSchemas.values()) {
             Cursor cursor = schema.sourceTable.getScanIndex(dbSession).find(dbSession, null, null);
             while (cursor.next()) {
                 vertices.add(new Vertex(cursor.get(), schema.sourceTable.getColumns()));
@@ -100,13 +135,13 @@ public class TestGraphDefinition {
     /**
      * Kicks of the actual work to perform
      */
-    public void start() throws SQLException {
+    public void start() throws Exception {
         loadDatabase();
         loadSchemas();
         runTests();
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws Exception {
         TestGraphDefinition driver = new TestGraphDefinition();
         driver.start();
     }
