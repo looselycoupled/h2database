@@ -1,5 +1,6 @@
 /*
- * Exploratory code to test graph construction classes
+ * Exploratory code to test graph construction classes.  Some of this code will
+ * be reworked and added to the org.h2.graph.Graph class when it's ready.
  */
 
 import org.h2.engine.Engine;
@@ -43,14 +44,19 @@ public class TestGraphDefinition {
         Table tStudents = db.getTableOrViewByName("STUDENTS").get(0);
         Table tClasses = db.getTableOrViewByName("CLASSES").get(0);
         Table tRegistrations = db.getTableOrViewByName("REGISTRATIONS").get(0);
+        Table tRooms = db.getTableOrViewByName("ROOMS").get(0);
 
         VertexSchema vStudentSchema = new VertexSchema(tStudents);
         VertexSchema vClassSchema = new VertexSchema(tClasses);
+        VertexSchema vRoomSchema = new VertexSchema(tRooms);
         EdgeSchema vRegistrationSchema = new EdgeSchema(tRegistrations);
 
         graphSchema.vertexSchemas.add(vStudentSchema);
         graphSchema.vertexSchemas.add(vClassSchema);
         graphSchema.edgeSchemas.add(vRegistrationSchema);
+
+        // TODO: test edge representing multiple joins (ex: student to room)
+        //       after rewriting EdgeSchema
     }
 
 
@@ -61,6 +67,7 @@ public class TestGraphDefinition {
 
         try {
             testGetAllVertices();
+            testGetVerticesByAttribute();
             testGetVertex();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.getMessage());
@@ -68,6 +75,10 @@ public class TestGraphDefinition {
     }
 
     public void testGetVertex() throws Exception {
+        // not yet implemented
+    }
+
+    public void testGetVerticesByAttribute() throws Exception {
         // not yet implemented
     }
 

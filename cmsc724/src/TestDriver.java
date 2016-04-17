@@ -91,8 +91,8 @@ public class TestDriver
   }
 
   public void start() throws SQLException {
-    //   SchoolLoader loader = new SchoolLoader();
-      PubsLoader loader = new PubsLoader();
+      SchoolLoader loader = new SchoolLoader();
+    //   PubsLoader loader = new PubsLoader();
       loader.load();
       work();
   }
