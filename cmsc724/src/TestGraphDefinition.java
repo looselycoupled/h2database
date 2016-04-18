@@ -95,19 +95,22 @@ public class TestGraphDefinition {
         try {
             testGetAllVertices();
             testGetVerticesByAttribute();
-            testGetVertex();
             testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
         }
     }
 
-    public void testGetVertex() throws Exception {
-        // not yet implemented
-    }
 
     public void testGetVerticesByAttribute() throws Exception {
-        // not yet implemented
+        System.out.println("\nTEST: testGetVerticesByAttribute\n======================");
+        VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
+
+        List<Vertex> vertices = vsStudent.findByAttribute("name", "Allen Leis");
+        System.out.println(vertices.get(0).getAttributes().toString());
+
+        vertices = vsStudent.findByAttribute("id", 2);
+        System.out.println(vertices.get(0).getAttributes().toString());
     }
 
     /**
@@ -122,21 +125,10 @@ public class TestGraphDefinition {
         System.out.println("\nTEST: Test Multiple Join\n======================");
 
         // get the Allen vertex
-        Vertex allen = null;
         VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
-        // TODO: create vertexSchemas.getCursor()?
-        Cursor cursor = vsStudent.sourceTable.getScanIndex(dbSession).find(dbSession, null, null);
-        while (cursor.next()) {
-            Row row = cursor.get();
-            if (row.getValue(1).getString().equals("Allen Leis")) {
-                allen = new Vertex(row, vsStudent.sourceTable.getColumns());
-                break;
-            }
-        }
+        Vertex allen = vsStudent.findByAttribute("name", "Allen Leis").get(0);
 
         EdgeSchema esHadClassInRoom = graphSchema.edgeSchemas.get("hadClassInRoom");
-        // System.out.println(esHadClassInRoom.getColumnPosition(vsStudent.sourceTable, vsStudent.sourceTable.getColumn("ID")));
-        // System.out.println(esHadClassInRoom.getColumnPosition(vsStudent.sourceTable, "id"));
         Vertex room = esHadClassInRoom.getTargetVertex(allen);
         System.out.println("Source: " + allen.getAttributes().get("NAME"));
         System.out.println("Target: " + room.getAttributes().toString());
@@ -148,10 +140,7 @@ public class TestGraphDefinition {
         System.out.println("\nTEST: Get all vertices\n======================");
         List<Vertex> vertices = new ArrayList<Vertex>();
         for (VertexSchema schema: graphSchema.vertexSchemas.values()) {
-            Cursor cursor = schema.sourceTable.getScanIndex(dbSession).find(dbSession, null, null);
-            while (cursor.next()) {
-                vertices.add(new Vertex(cursor.get(), schema.sourceTable.getColumns()));
-            }
+            vertices.addAll(schema.findAll());
         }
         for (Vertex v: vertices) {
             System.out.println(v.getAttributes().toString());
