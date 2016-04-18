@@ -33,7 +33,7 @@ public class Vertex {
         return row.getValueList();
     }
 
-    public HashMap<String, Value> getAttributes() throws Exception {
+    public HashMap<String, Value> getAttributes() {
         return attributesMap;
     }
 

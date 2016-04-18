@@ -7,6 +7,7 @@ import org.h2.engine.Engine;
 import org.h2.engine.Database;
 import org.h2.engine.Session;
 import org.h2.index.Cursor;
+import org.h2.result.Row;
 import org.h2.graph.*;
 import org.h2.table.Column;
 import org.h2.table.Table;
@@ -47,12 +48,12 @@ public class TestGraphDefinition {
         Table tRegistrations = db.getTableOrViewByName("REGISTRATIONS").get(0);
         Table tRooms = db.getTableOrViewByName("ROOMS").get(0);
 
-        VertexSchema vStudentSchema = new VertexSchema(tStudents, "student");
-        VertexSchema vClassSchema = new VertexSchema(tClasses, "class");
-        VertexSchema vRoomSchema = new VertexSchema(tRooms, "room");
+        VertexSchema vStudentSchema = new VertexSchema(dbSession, tStudents, "student");
+        VertexSchema vClassSchema = new VertexSchema(dbSession, tClasses, "class");
+        VertexSchema vRoomSchema = new VertexSchema(dbSession, tRooms, "room");
 
         // a simple edge denoting registrations of a student
-        EdgeSchema eRegistrationSchema = new EdgeSchema("registration");
+        EdgeSchema eRegistrationSchema = new EdgeSchema(dbSession, "registration");
         eRegistrationSchema.addJoin(
             tStudents, tStudents.getColumn("ID"),
             tRegistrations, tRegistrations.getColumn("STUDENT_ID")
@@ -60,7 +61,7 @@ public class TestGraphDefinition {
 
         // an edge with multiple joins representing rooms a user has had
         // class in
-        EdgeSchema eHadClassInRoomSchema = new EdgeSchema("hadClassInRoom");
+        EdgeSchema eHadClassInRoomSchema = new EdgeSchema(dbSession, "hadClassInRoom");
         eHadClassInRoomSchema.addJoin(
             tStudents, tStudents.getColumn("ID"),
             tRegistrations, tRegistrations.getColumn("STUDENT_ID")
@@ -73,6 +74,7 @@ public class TestGraphDefinition {
             tClasses, tClasses.getColumn("ROOM_ID"),
             tRooms, tRooms.getColumn("ID")
         );
+        vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
 
 
         // store all these schemas in the graphSchema object
@@ -96,7 +98,7 @@ public class TestGraphDefinition {
             testGetVertex();
             testEdgeWithMulitpleJoins();
         } catch (Exception e) {
-            System.out.println("FAIL: " + e.getMessage());
+            System.out.println("FAIL: " + e.toString());
         }
     }
 
@@ -112,8 +114,33 @@ public class TestGraphDefinition {
      * Tests the use of an edgeschema which traverses multiple joins.  Start
      * with the Allen/student Vertex and get Room vertices that can be Found
      * through the "hadClassInRoom" edge.
+     *
+     * This is just exploratory code and doesnt necessarily represent the final
+     * way of doing things.
      */
     public void testEdgeWithMulitpleJoins() throws Exception {
+        System.out.println("\nTEST: Test Multiple Join\n======================");
+
+        // get the Allen vertex
+        Vertex allen = null;
+        VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
+        // TODO: create vertexSchemas.getCursor()?
+        Cursor cursor = vsStudent.sourceTable.getScanIndex(dbSession).find(dbSession, null, null);
+        while (cursor.next()) {
+            Row row = cursor.get();
+            if (row.getValue(1).getString().equals("Allen Leis")) {
+                allen = new Vertex(row, vsStudent.sourceTable.getColumns());
+                break;
+            }
+        }
+
+        EdgeSchema esHadClassInRoom = graphSchema.edgeSchemas.get("hadClassInRoom");
+        // System.out.println(esHadClassInRoom.getColumnPosition(vsStudent.sourceTable, vsStudent.sourceTable.getColumn("ID")));
+        // System.out.println(esHadClassInRoom.getColumnPosition(vsStudent.sourceTable, "id"));
+        Vertex room = esHadClassInRoom.getTargetVertex(allen);
+        System.out.println("Source: " + allen.getAttributes().get("NAME"));
+        System.out.println("Target: " + room.getAttributes().toString());
+
 
     }
 
