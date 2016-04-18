@@ -4,10 +4,10 @@
 
 package org.h2.graph;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashMap;
 import org.h2.graph.EdgeSchema;
 import org.h2.table.Table;
+import org.h2.engine.Session;
 
 
 
@@ -16,16 +16,18 @@ import org.h2.table.Table;
  */
 public class VertexSchema {
 
+    private Session session;
     private String label;
     public Table sourceTable;
 
-    public List<EdgeSchema> incomingEdges = new ArrayList<EdgeSchema>();
-    public List<EdgeSchema> outgoingEdges = new ArrayList<EdgeSchema>();
+    public HashMap<String, EdgeSchema> incomingEdges = new HashMap<String, EdgeSchema>();
+    public HashMap<String, EdgeSchema> outgoingEdges = new HashMap<String, EdgeSchema>();
 
     /**
      * Constructor accepts a reference to the underlying table
      */
-    public VertexSchema(Table sourceTable, String label) {
+    public VertexSchema(Session session, Table sourceTable, String label) {
+        this.session = session;
         this.sourceTable = sourceTable;
         this.label = label;
     }
