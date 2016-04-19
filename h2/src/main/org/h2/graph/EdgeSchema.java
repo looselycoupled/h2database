@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.h2.engine.Session;
-import org.h2.graph.EdgeSchema;
 import org.h2.table.Table;
 import org.h2.table.Column;
 import org.h2.result.Row;
