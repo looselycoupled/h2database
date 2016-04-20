@@ -11,6 +11,7 @@ import org.h2.result.Row;
 import org.h2.graph.*;
 import org.h2.table.Column;
 import org.h2.table.Table;
+import com.tinkerpop.blueprints.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,36 +50,40 @@ public class TestGraphDefinition {
         Table tRooms = db.getTableOrViewByName("ROOMS").get(0);
 
         VertexSchema vStudentSchema = new VertexSchema(dbSession, tStudents, "student");
+        VertexSchema vRegistrationSchema = new VertexSchema(dbSession, tRegistrations, "registration");
         VertexSchema vClassSchema = new VertexSchema(dbSession, tClasses, "class");
         VertexSchema vRoomSchema = new VertexSchema(dbSession, tRooms, "room");
 
         // a simple edge denoting registrations of a student
+        // an edge only exists if there exists a node on either side of it
+        // edge schema gives us one or more join that we must traverse
         EdgeSchema eRegistrationSchema = new EdgeSchema(dbSession, "registration");
         eRegistrationSchema.addJoin(
-            tStudents, tStudents.getColumn("ID"),
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+            tStudents, tStudents.getColumn("ID"), 0,
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID"), 1
         );
 
         // an edge with multiple joins representing rooms a user has had
         // class in
         EdgeSchema eHadClassInRoomSchema = new EdgeSchema(dbSession, "hadClassInRoom");
         eHadClassInRoomSchema.addJoin(
-            tStudents, tStudents.getColumn("ID"),
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+            tStudents, tStudents.getColumn("ID"), 0,
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID"), 1
         );
         eHadClassInRoomSchema.addJoin(
-            tRegistrations, tRegistrations.getColumn("CLASS_ID"),
-            tClasses, tClasses.getColumn("ID")
+            tRegistrations, tRegistrations.getColumn("CLASS_ID"), 0,
+            tClasses, tClasses.getColumn("ID"), 0
         );
         eHadClassInRoomSchema.addJoin(
-            tClasses, tClasses.getColumn("ROOM_ID"),
-            tRooms, tRooms.getColumn("ID")
+            tClasses, tClasses.getColumn("ROOM_ID"), 5,
+            tRooms, tRooms.getColumn("ID"), 0
         );
-        vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
+        // vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
 
 
         // store all these schemas in the graphSchema object
         graphSchema.vertexSchemas.put(vStudentSchema.getLabel(), vStudentSchema);
+        graphSchema.vertexSchemas.put(vRegistrationSchema.getLabel(), vRegistrationSchema);
         graphSchema.vertexSchemas.put(vClassSchema.getLabel(), vClassSchema);
         graphSchema.vertexSchemas.put(vRoomSchema.getLabel(), vRoomSchema);
         graphSchema.edgeSchemas.put(eRegistrationSchema.getLabel(), eRegistrationSchema);
@@ -93,25 +98,28 @@ public class TestGraphDefinition {
     public void runTests() {
 
         try {
-            testGetAllVertices();
-            testGetVerticesByAttribute();
-            testEdgeWithMulitpleJoins();
+            testCreateSingleJoinEdge();
+            // testGetAllVertices();
+            // testGetVerticesByAttribute();
+            // testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
         }
+        testCreateMultipleJoinEdge();
+        
     }
 
 
-    public void testGetVerticesByAttribute() throws Exception {
-        System.out.println("\nTEST: testGetVerticesByAttribute\n======================");
-        VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
+    // public void testGetVerticesByAttribute() throws Exception {
+    //     System.out.println("\nTEST: testGetVerticesByAttribute\n======================");
+    //     VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
 
-        List<Vertex> vertices = vsStudent.findByAttribute("name", "Allen Leis");
-        System.out.println(vertices.get(0).getAttributes().toString());
+    //     List<Vertex> vertices = vsStudent.findByAttribute("name", "Allen Leis");
+    //     System.out.println(vertices.get(0).getAttributes().toString());
 
-        vertices = vsStudent.findByAttribute("id", 2);
-        System.out.println(vertices.get(0).getAttributes().toString());
-    }
+    //     vertices = vsStudent.findByAttribute("id", 2);
+    //     System.out.println(vertices.get(0).getAttributes().toString());
+    // }
 
     /**
      * Tests the use of an edgeschema which traverses multiple joins.  Start
@@ -121,29 +129,72 @@ public class TestGraphDefinition {
      * This is just exploratory code and doesnt necessarily represent the final
      * way of doing things.
      */
-    public void testEdgeWithMulitpleJoins() throws Exception {
-        System.out.println("\nTEST: Test Multiple Join\n======================");
+    // public void testEdgeWithMulitpleJoins() throws Exception {
+    //     System.out.println("\nTEST: Test Multiple Join\n======================");
 
-        // get the Allen vertex
-        VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
-        Vertex allen = vsStudent.findByAttribute("name", "Allen Leis").get(0);
+    //     // get the Allen vertex
+    //     VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
+    //     Vertex allen = vsStudent.findByAttribute("name", "Allen Leis").get(0);
 
-        EdgeSchema esHadClassInRoom = graphSchema.edgeSchemas.get("hadClassInRoom");
-        Vertex room = esHadClassInRoom.getTargetVertex(allen);
-        System.out.println("Source: " + allen.getAttributes().get("NAME"));
-        System.out.println("Target: " + room.getAttributes().toString());
+    //     EdgeSchema esHadClassInRoom = graphSchema.edgeSchemas.get("hadClassInRoom");
+    //     Vertex room = esHadClassInRoom.getTargetVertex(allen);
+    //     System.out.println("Source: " + allen.getAttributes().get("NAME"));
+    //     System.out.println("Target: " + room.getAttributes().toString());
 
 
+    // }
+
+    public void testCreateMultipleJoinEdge() {
+        System.out.println("\nTEST: Creating a multiple join edge\n======================");
+        // create all the vertices from the vertexSchemas and add them to the Graph
+        List<Vertex> srcVertices = graphSchema.vertexSchemas.get("student").findAll();
+        List<Vertex> dstVertices = graphSchema.vertexSchemas.get("room").findAll();
+        EdgeSchema eSchema = graphSchema.edgeSchemas.get("hadClassInRoom");
+        List<Edge> edges = eSchema.connectVertices(srcVertices, dstVertices);
+        for (Vertex srcV: srcVertices) {
+            for (Edge e: srcV.getEdges(Direction.OUT)){
+                Vertex dstV = e.getDstVertex();
+                System.out.println("source vertex is ");
+                srcV.print();
+                System.out.println("edge type is " + e.getLabel());
+                System.out.println("destination vertex is ");
+                dstV.print();
+            }
+        }
+    }
+
+    public void testCreateSingleJoinEdge() {
+        System.out.println("\nTEST: Create a single join edge \n======================");
+        // create all the vertices from the vertexSchemas and add them to the Graph
+        List<Vertex> srcVertices = graphSchema.vertexSchemas.get("student").findAll();
+        List<Vertex> dstVertices = graphSchema.vertexSchemas.get("registration").findAll();
+        EdgeSchema eSchema = graphSchema.edgeSchemas.get("registration");
+        List<Edge> edges = eSchema.connectVertices(srcVertices, dstVertices);
+        for (Vertex srcV: srcVertices) {
+            for (Edge e: srcV.getEdges(Direction.OUT)){
+                Vertex dstV = e.getDstVertex();
+                System.out.println("source vertex is ");
+                srcV.print();
+                System.out.println("edge type is " + e.getLabel());
+                System.out.println("destination vertex is ");
+                dstV.print();
+            }
+        }
     }
 
     public void testGetAllVertices() throws Exception {
         System.out.println("\nTEST: Get all vertices\n======================");
+        Graph graph = new Graph();
+        // create all the vertices from the vertexSchemas and add them to the Graph
         List<Vertex> vertices = new ArrayList<Vertex>();
         for (VertexSchema schema: graphSchema.vertexSchemas.values()) {
-            vertices.addAll(schema.findAll());
+            graph.addVertices(schema.findAll());
         }
-        for (Vertex v: vertices) {
-            System.out.println(v.getAttributes().toString());
+        // add the vertices to the Graph
+        for (Vertex v: graph.getVertices()) {
+            for (String key: v.getPropertyKeys()) {
+                System.out.println(v.getProperty(key).toString());
+            }
         }
     }
 
