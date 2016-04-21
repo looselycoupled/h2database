@@ -59,24 +59,24 @@ public class TestGraphDefinition {
         // edge schema gives us one or more join that we must traverse
         EdgeSchema eRegistrationSchema = new EdgeSchema(dbSession, "registration");
         eRegistrationSchema.addJoin(
-            tStudents, tStudents.getColumn("ID"), 0,
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID"), 1
+            tStudents, tStudents.getColumn("ID"),
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
         );
 
         // an edge with multiple joins representing rooms a user has had
         // class in
         EdgeSchema eHadClassInRoomSchema = new EdgeSchema(dbSession, "hadClassInRoom");
         eHadClassInRoomSchema.addJoin(
-            tStudents, tStudents.getColumn("ID"), 0,
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID"), 1
+            tStudents, tStudents.getColumn("ID"),
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
         );
         eHadClassInRoomSchema.addJoin(
-            tRegistrations, tRegistrations.getColumn("CLASS_ID"), 0,
-            tClasses, tClasses.getColumn("ID"), 0
+            tRegistrations, tRegistrations.getColumn("CLASS_ID"),
+            tClasses, tClasses.getColumn("ID")
         );
         eHadClassInRoomSchema.addJoin(
-            tClasses, tClasses.getColumn("ROOM_ID"), 5,
-            tRooms, tRooms.getColumn("ID"), 0
+            tClasses, tClasses.getColumn("ROOM_ID"),
+            tRooms, tRooms.getColumn("ID")
         );
         // vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
 
@@ -99,14 +99,13 @@ public class TestGraphDefinition {
 
         try {
             testCreateSingleJoinEdge();
+            testCreateMultipleJoinEdge();
             // testGetAllVertices();
             // testGetVerticesByAttribute();
             // testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
         }
-        testCreateMultipleJoinEdge();
-        
     }
 
 

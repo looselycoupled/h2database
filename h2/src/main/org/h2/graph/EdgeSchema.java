@@ -37,18 +37,14 @@ public class EdgeSchema {
     private class JoinSchema {
         public Table sourceTable;
         public Column sourceColumn;
-        public Integer sourceColumnID;
         public Table targetTable;
         public Column targetColumn;
-        public Integer targetColumnID;
 
-        public JoinSchema(Table sourceTable, Column sourceColumn, Integer srcColID, Table targetTable, Column targetColumn, Integer tgtColID) {
+        public JoinSchema(Table sourceTable, Column sourceColumn, Table targetTable, Column targetColumn) {
             this.sourceTable = sourceTable;
             this.sourceColumn = sourceColumn;
-            this.sourceColumnID = srcColID;
             this.targetTable = targetTable;
             this.targetColumn = targetColumn;
-            this.targetColumnID = tgtColID;
         }
     }
 
@@ -83,8 +79,8 @@ public class EdgeSchema {
      * Public method to add consecutive joins that as a whole will define the
      * edge relationship.
      */
-    public void addJoin(Table sourceTable, Column sourceColumn, Integer srcColID, Table targetTable,
-        Column targetColumn, Integer tgtColID) throws Exception {
+    public void addJoin(Table sourceTable, Column sourceColumn, Table targetTable,
+        Column targetColumn) throws Exception {
 
         // make sure this join starts with the same table we currently end with
         if (joins.size() > 0) {
@@ -93,7 +89,7 @@ public class EdgeSchema {
             }
         }
         // add new joinschema object
-        JoinSchema j = new JoinSchema(sourceTable, sourceColumn, srcColID, targetTable, targetColumn, tgtColID);
+        JoinSchema j = new JoinSchema(sourceTable, sourceColumn, targetTable, targetColumn);
         joins.add(j);
     }
 
