@@ -1,0 +1,14 @@
+
+Nodes(student) :- STUDENTS
+
+Nodes(registration) :- REGISTRATIONS
+
+Nodes(class) :- CLASSES
+
+Nodes(room) :- ROOMS
+
+Edges(registration) :- STUDENTS, REGISTRATIONS
+
+Edges(hadClassInRoom) :- STUDENTS, REGISTRATIONS, CLASSES, ROOMS
+
+Graph(school) :- Nodes(student,registration,class,room), Edges(hadClassInRoom,registration)

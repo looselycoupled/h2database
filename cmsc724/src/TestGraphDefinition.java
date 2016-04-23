@@ -59,7 +59,7 @@ public class TestGraphDefinition {
         // edge schema gives us one or more join that we must traverse
         EdgeSchema eRegistrationSchema = new EdgeSchema(dbSession, "registration");
         eRegistrationSchema.addJoin(
-            tStudents, tStudents.getColumn("ID"),
+            tStudents, tStudents.getColumn("STUDENT_ID"),
             tRegistrations, tRegistrations.getColumn("STUDENT_ID")
         );
 
@@ -67,18 +67,20 @@ public class TestGraphDefinition {
         // class in
         EdgeSchema eHadClassInRoomSchema = new EdgeSchema(dbSession, "hadClassInRoom");
         eHadClassInRoomSchema.addJoin(
-            tStudents, tStudents.getColumn("ID"),
+            tStudents, tStudents.getColumn("STUDENT_ID"),
             tRegistrations, tRegistrations.getColumn("STUDENT_ID")
         );
         eHadClassInRoomSchema.addJoin(
             tRegistrations, tRegistrations.getColumn("CLASS_ID"),
-            tClasses, tClasses.getColumn("ID")
+            tClasses, tClasses.getColumn("CLASS_ID")
         );
         eHadClassInRoomSchema.addJoin(
             tClasses, tClasses.getColumn("ROOM_ID"),
-            tRooms, tRooms.getColumn("ID")
+            tRooms, tRooms.getColumn("ROOM_ID")
         );
-        // vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
+        
+
+        //vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
 
 
         // store all these schemas in the graphSchema object
@@ -100,9 +102,9 @@ public class TestGraphDefinition {
         try {
             testCreateSingleJoinEdge();
             testCreateMultipleJoinEdge();
-            // testGetAllVertices();
-            // testGetVerticesByAttribute();
-            // testEdgeWithMulitpleJoins();
+            //testGetAllVertices();
+            //testGetVerticesByAttribute();
+            //testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
         }
