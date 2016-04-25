@@ -5,11 +5,11 @@ LOCALPATH := $(CURDIR)
 .PHONY: clean build
 
 build:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar" ./src/TestDriver.java
+	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar" ./src/TestDSLGraphDefinition.java
 
 run:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar" ./src/TestDriver.java
-	java -cp ".:./src:../h2/bin/h2-1.4.191.jar" TestDriver
+	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/TestDSLGraphDefinition.java
+	java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" TestDSLGraphDefinition
 
 # Clean build files
 clean:

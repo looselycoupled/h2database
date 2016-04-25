@@ -204,6 +204,7 @@ public class Build extends BuildBase {
                 File.pathSeparator + "ext/org.osgi.core-4.2.0.jar" +
                 File.pathSeparator + "ext/org.osgi.enterprise-4.2.0.jar" +
                 File.pathSeparator + "ext/jts-1.13.jar" +
+                File.pathSeparator + "ext/blueprints-core-2.6.0.jar" +
                 File.pathSeparator + System.getProperty("java.home") + "/../lib/tools.jar";
         FileList files;
         if (clientOnly) {
@@ -305,6 +306,9 @@ public class Build extends BuildBase {
         downloadOrVerify("ext/jts-1.13.jar",
                 "com/vividsolutions", "jts", "1.13",
                 "3ccfb9b60f04d71add996a666ceb8902904fd805", offline);
+        downloadOrVerify("ext/blueprints-core-2.6.0.jar",
+                "com/tinkerpop/blueprints", "blueprints-core", "2.6.0",
+                "b1b91206937f2ecc9096dfca8eb2c546cf987d46", offline);
     }
 
     private void downloadOrVerify(String target, String group, String artifact,
