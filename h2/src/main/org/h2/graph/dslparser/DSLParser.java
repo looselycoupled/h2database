@@ -46,14 +46,9 @@ public class DSLParser {
 	  }
 	}
 
-	public ArrayList<String> intersection( List<String> list1, List<String> list2) {    
-	    
-	    ArrayList<String> result = new ArrayList<String>(list1);
-	    result.retainAll(list2);
-	    return result;
-	}
 
-	public ArrayList<String> returnatts(String sTable) throws Exception {
+
+	public String returnatts(String sTable, int pos) throws Exception {
 		
 		ArrayList<String> atts = new ArrayList<String>();
 
@@ -70,20 +65,47 @@ public class DSLParser {
 			System.out.println("Invalid Table Name"+e.toString());
 		}
 	
-	    return atts;
+	    return atts.get(pos);
+	}
+
+
+	public int getJoinIndex(String[] attlist1, String[] attlist2){
+
+		// find join index wrp table1
+
+		int pos=-1;
+
+		for(int i=0;i<attlist1.length;i++){
+			for(int j=0;j<attlist2.length;j++){
+
+				if(attlist1[i].trim().equals(attlist2[j].trim()) && !attlist1[i].trim().equals("_") ){
+					pos = i;
+					break;
+				}
+				
+			}
+			if(pos>-1){
+				break;
+			}
+		}
+		
+		return pos;
+
 	}
 
 	public String getJoinColumn(String table1, String table2) throws Exception {
+		
+		String table1name = table1.split("\\(")[0].trim();
 
-		ArrayList<String> attlist1 = returnatts(table1);
-		ArrayList<String> attlist2 = returnatts(table2);
-		ArrayList<String> joincols = intersection(attlist1,attlist2);
+		String table2name = table2.split("\\(")[0].trim();
 
-		if(joincols.size() == 0){
-			return "";
-		}else{
-			return joincols.get(0);
-		}
+		String[] attlist1 = table1.split("\\(")[1].split("\\)")[0].split(",");
+
+		String[] attlist2 = table2.split("\\(")[1].split("\\)")[0].split(",");
+		
+		int matchIndex = getJoinIndex(attlist1, attlist2);
+
+		return returnatts(table1name, matchIndex);
 
 	}
 
@@ -132,26 +154,29 @@ public class DSLParser {
 
 				//Extracting sourceTables for Edges
 				
-				String[] tables = tail.split(",");
-				
 				String outquery = edgelabel+":";
-				
-				for(int i=0;i<tables.length;i++){
-					for(int j=i+1;j<tables.length;j++){
 
-						String table1 = tables[i].trim();
-						String table2 = tables[j].trim();
-						
-						String joinCol = getJoinColumn(table1,table2);
+				tail = tail.replaceAll("\\)\\s*,","):");
 
-						if(! "".equals(joinCol)){
-							outquery += (table1+"+"+joinCol+"+"+table2+",");
-						}
-						
-					}
+				String[] tables = tail.split(":");
+					
+				for(int i=0;i<tables.length-1;i++){
+					
+					String table1 = tables[i].trim();
+					String table2 = tables[i+1].trim();
+					
+					String joinCol = getJoinColumn(table1,table2);
+
+					String table1name = table1.split("\\(")[0].trim();
+
+					String table2name = table2.split("\\(")[0].trim();
+
+					outquery += (table1name+"+"+joinCol+"+"+table2name+",");	
+					
 				}
-
+				
 				einfo.add(outquery);
+				
 			}
 		}
 		

@@ -7,8 +7,8 @@ Nodes(class) :- CLASSES
 
 Nodes(room) :- ROOMS
 
-Edges(registration) :- STUDENTS, REGISTRATIONS
+Edges(registration) :- STUDENTS(id, _), REGISTRATIONS(_, id, _)
 
-Edges(hadClassInRoom) :- STUDENTS, REGISTRATIONS, CLASSES, ROOMS
+Edges(hadClassInRoom) :- STUDENTS(id1, _), REGISTRATIONS(id2, id1, _), CLASSES(id2, _, _, _, _, id3), ROOMS(id3,_,_)
 
 Graph(school) :- Nodes(student,registration,class,room), Edges(hadClassInRoom,registration)

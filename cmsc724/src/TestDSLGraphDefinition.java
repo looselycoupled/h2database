@@ -73,6 +73,7 @@ public class TestDSLGraphDefinition {
         ArrayList<String> einfo = p.parseEdgeQueries();
         ArrayList<EdgeSchema> eSchemaList = new ArrayList<EdgeSchema>();
 
+        
         for(String s:einfo){
 
             String edgelabel = s.split(":")[0].trim();
@@ -145,8 +146,6 @@ public class TestDSLGraphDefinition {
             String label = s.trim();
             int index=0, i=0;
 
-            System.out.println(label);
-
             // find the correct vSchema to add to graphSchema
             while(i<eSchemaList.size()){
                 if(label.equals(eSchemaList.get(i).getLabel().trim())){
@@ -158,8 +157,7 @@ public class TestDSLGraphDefinition {
             }
 
             graphSchema.edgeSchemas.put(label, eSchemaList.get(index));
-        }
-
+        } 
 
     }
 
