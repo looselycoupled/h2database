@@ -51,23 +51,40 @@ public class TestDSLGraphDefinition {
         DSLParser p = new DSLParser(db,dbSession);
         p.loadDSL("./data/dsl/school.txt");
         
-
+        
         //creating vertex schema
-
+        
         ArrayList<String> vinfo = p.parseNodeQueries();
         ArrayList<VertexSchema> vSchemaList = new ArrayList<VertexSchema>();
 
+      
         for(String s:vinfo){
+
             String[] parts = s.split("\\+");
             String tablename = parts[0].trim();
-            String label = parts[1].trim();
+            String label = parts[1].trim().split("!")[0];
 
+            /*
+            //Node attributes are here use them             
+            if(parts[1].trim().split("!").length>1){
+                String[] attributes = parts[1].trim().split("!")[1].split(",");
+                   for(String att:attributes){
+                        System.out.print(att+" , ");
+                    }
+            }
+            */
+
+            //Constructing the node schema 
+            
             Table t = db.getTableOrViewByName(tablename).get(0);
             VertexSchema vSchema = new VertexSchema(dbSession, t, label);
             
             vSchemaList.add(vSchema);
+            
+            
         }
 
+        
         //creating edge schema
 
         ArrayList<String> einfo = p.parseEdgeQueries();
@@ -76,12 +93,22 @@ public class TestDSLGraphDefinition {
         
         for(String s:einfo){
 
+            System.out.println(s);
+
             String edgelabel = s.split(":")[0].trim();
+            
+
             EdgeSchema eSchema = new EdgeSchema(dbSession, edgelabel);
 
-            String[] joinqueries = s.split(":")[1].trim().split(",");
+            String[] joinqueries = s.split(":")[1].trim().split("!")[0].trim().split(",");
 
+            String attrs = "";
 
+            if(s.split(":")[1].trim().split("!").length>1){
+
+                attrs = s.split(":")[1].trim().split("!")[1].trim();
+            }
+    
             for(String q:joinqueries){
 
                 String[] parts = q.split("\\+");
@@ -101,8 +128,24 @@ public class TestDSLGraphDefinition {
                 );
             }
 
-            
+
+            /*
+            //Add edge attributes to 
+
+            //Retrieved as tablename, attribute
+
+            if(attrs.split(",").length>1){
+                for(String val:attrs.split(",")){
+                    String table = val.split("\\+")[0].trim();
+                    String att = val.split("\\+")[1].trim();
+                    System.out.println(table+ " "+ att);
+                }
+            }
+            */
+
+
             eSchemaList.add(eSchema);
+            
         }
 
         
@@ -158,6 +201,7 @@ public class TestDSLGraphDefinition {
 
             graphSchema.edgeSchemas.put(label, eSchemaList.get(index));
         } 
+        
 
     }
 

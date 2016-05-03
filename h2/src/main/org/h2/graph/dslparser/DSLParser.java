@@ -110,7 +110,43 @@ public class DSLParser {
 	}
 
 
-	public ArrayList<String> parseNodeQueries(){
+	public String getNodeAttrs(String sTable, String proplist, String attlist) throws Exception{
+
+
+		if(proplist.trim().equals("")){
+			return "";
+		}
+
+		String[] propvals = proplist.split(",");
+
+		String[] attvals = attlist.split(",");
+
+		int[] posIndex = new int[propvals.length];
+
+		String output = "";
+
+		for(int i=0;i<propvals.length;i++){
+			for(int j=0; j<attvals.length;j++){
+				if(propvals[i].trim().equals(attvals[j].trim())){
+					
+					if(i<propvals.length-1){
+						output = output + returnatts(sTable, j) + "," ;
+					}
+					else{
+						output = output + returnatts(sTable, j);
+					}
+					
+
+					break;
+				}
+			}
+		}
+
+		return output;
+	}
+
+
+	public ArrayList<String> parseNodeQueries() throws Exception{
 
 		ArrayList<String> vinfo = new ArrayList<String>();
 
@@ -123,14 +159,33 @@ public class DSLParser {
 
 				// Extracting label for output reln
 				String val = head.split("Nodes")[1].trim();
+				
 				parts = val.split("\\(");
+				
 				String nodelabel = parts[1].split("\\)")[0].trim();
+
+				String proplist = "";
+
+				if(nodelabel.split(":").length>1){
+
+					proplist = nodelabel.split(":")[1].trim();
+				}
+
+				nodelabel = nodelabel.split(":")[0].trim();
 
 				//Extracting sourceTable for Nodes
 				parts = tail.split("\\(");
+				
 				String sTable = parts[0].trim();
 
-				vinfo.add(sTable+"+"+nodelabel);
+				String attlist = parts[1].split("\\)")[0].trim();
+
+				String res = sTable+"+"+nodelabel;
+
+				//add the node attributes to 
+				res = res + "!" + getNodeAttrs(sTable, proplist,attlist);
+
+				vinfo.add(res);
 			}
 		}
 		return vinfo;
@@ -152,6 +207,14 @@ public class DSLParser {
 				parts = val.split("\\(");
 				String edgelabel = parts[1].split("\\)")[0].trim();
 
+				String props = "";
+
+				if(edgelabel.split("-").length>1){
+					props = edgelabel.split("-")[1].trim();
+				}
+
+				edgelabel = edgelabel.split("-")[0].trim();
+
 				//Extracting sourceTables for Edges
 				
 				String outquery = edgelabel+":";
@@ -172,9 +235,67 @@ public class DSLParser {
 					String table2name = table2.split("\\(")[0].trim();
 
 					outquery += (table1name+"+"+joinCol+"+"+table2name+",");	
-					
+
 				}
+
+				//add the edge attributes 
+
+				if(props.trim().equals("")){
+					
+					outquery = outquery + "!" ;
 				
+				}else{
+					
+					//Add it as Table1+attr,Table2+attr
+
+					outquery = outquery + "!" ;
+
+					//returnatts(sTable,pos)
+
+					for(String att:props.split(",")){
+
+						//for each att pick the Table and the actual attribute
+
+						//Store it as Table1+att
+
+						String attid = att.trim();
+
+						for(String t: tables){
+
+							String table1name = t.split("\\(")[0].trim();
+
+							String[] tattlist = t.split("\\(")[1].split("\\)")[0].split(",");
+
+							int pos = 0;
+		
+							int k = 0;
+
+							for(String tatt: tattlist){
+
+								if(tatt.trim().equals(att.trim())){
+
+									outquery += (table1name + "+"+returnatts(table1name,k)+",");
+
+									pos = 1;
+
+									break;
+
+								}
+
+								k++;
+
+							}
+
+							if(pos == 1){
+								break;
+							}
+
+						}
+
+					}
+
+				}
+
 				einfo.add(outquery);
 				
 			}
