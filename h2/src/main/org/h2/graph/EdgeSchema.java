@@ -96,27 +96,33 @@ public class EdgeSchema {
     // Given two lists of vertices, find all the edges between them
     public List<Edge> connectVertices(List<Vertex> srcVertices, List<Vertex> dstVertices){
         List<Edge> edges = new ArrayList<Edge>();
+        // find ALL possible edges for each vertex
         for (Vertex srcV: srcVertices){
-            // given a vertex, let's find all of its outgoing edges of the EdgeSchema type
-            // will need a special case for the last join - let's assume only one join for now
-            // we should abstract away the underlying row - give us an attribute that we are joining on
-            // for the nodes
             List<ArrayList<Row>> prevRowsList;
             List<ArrayList<Row>> currRowsList = new ArrayList<ArrayList<Row>>();
             ArrayList<Row> srcRows = new ArrayList<Row>();
             srcRows.add(srcV.row);
             currRowsList.add(srcRows);
-            int counter = 0;
+            int counter = 0;// let's us figure out
             for (JoinSchema j: joins) {
-                System.out.println("there are " + currRowsList.size() + " candidates");
+                // candidate edges 
+                //   - a candidate edge is a list of rows that so far extend over the join
+                //   - ex. initially the only candidate edge is the row r1 of the source vertex
+                //   - ex. then, we join r1 with two rows r2, r3 from table t2
+                //   - now, we have two candidate edges [r1,r2] and [r1,r3]
+                // prevRowsList is a list of the candidate edges found for the previous join schema
                 prevRowsList = currRowsList;
+                // currRowsList will be the list of the candidate edges found for this join schema
                 currRowsList = new ArrayList<ArrayList<Row>>();
                 // loop through all the "candidate" edges
                 for (List<Row> rows: prevRowsList) {
+                    // get the value that we are trying to join
+                    // TODO - assumes the join value is an int
                     int src_value = rows.get(rows.size()-1).getValue(getColumnPosition(j.sourceTable, j.sourceColumn)).getInt();
                     // if last join, loop through the dstVertices
                     if (counter == (joins.size()-1)){
                         for (Vertex dstV: dstVertices) {
+                            // TODO - assumes the join value is an int
                             int dst_value = dstV.getProperty(j.targetColumn.getName()).getInt();
                             if (dst_value == src_value){
                                 Edge edge = new Edge(srcV, dstV, rows, this);
@@ -125,14 +131,14 @@ public class EdgeSchema {
                                 dstV.addEdge(edge, Direction.IN);
                             }
                         }
-                    } else {
+                    } else { // otherwise, scan the target table - TODO use index
                         Cursor c = j.targetTable.getScanIndex(session).find(session, null, null);
                         while (c.next()) {
                             Row cursorRow = c.get();
+                            // TODO - assumes the join value is an int
                             int dst_value = cursorRow.getValue(getColumnPosition(j.targetTable, j.targetColumn)).getInt();
                             if (src_value == dst_value) {
-                                // we found our join row
-                                System.out.println("found matching row");
+                                // we found our join row - found a candidate edge for next round
                                 ArrayList<Row> extRows = new ArrayList<Row>();
                                 extRows.addAll(rows);
                                 extRows.add(cursorRow);
