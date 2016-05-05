@@ -17,14 +17,13 @@ public class DSLParser {
 
 	private ArrayList<String> queries = new ArrayList<String>();
 	private Database db;
-    private Session dbSession;
 
 
     //initilializes db and session
-	public DSLParser(Database d, Session s){
+	public DSLParser(Database d){
 		db = d;
-		dbSession = s; 
 	}
+	      
 
 	// stores the DSL queries in queries
 	public void loadDSL(String filename) throws IOException {
@@ -35,7 +34,7 @@ public class DSLParser {
 			String line = bf.readLine();
 			while (line != null)
 			{
-				if(! "".equals(line.trim())){
+				if(! "".equals(line.trim()) && (line.startsWith("Nodes")||line.startsWith("Edges")||line.startsWith("Graph"))){
 					queries.add(line);
 				}
 				line = bf.readLine();

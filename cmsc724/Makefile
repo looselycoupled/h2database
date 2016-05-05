@@ -20,6 +20,11 @@ testdriver:
 	java -cp $(JARPATHS) TestDriver
 
 
+testgraphregister:
+	javac -cp $(JARPATHS) ./src/TestGraphRegister.java
+	java -cp $(JARPATHS) TestGraphRegister
+
+
 bfssql:
 	javac -cp $(JARPATHS) ./src/BFSExperimentSQL.java
 	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL

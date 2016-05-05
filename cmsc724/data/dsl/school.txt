@@ -1,24 +1,18 @@
-# The format of the DSL File
-
+#The format of the DSL File
 #Nodes(nodelabel:node_attribute_list) :- SOURCE_TABLE(attribute_list)
-
 #Edges(edgelabel-edge_attribute_list) :- SOURCE_TABLE1(attribute_list1), SOURCE_TABLE2(attribute_list2), SOURCE_TABLE3(attribute_list3), ...
-
 #Graph(graphlabel) :- Nodes(nodelabel1,nodelabel2,..), Edges(edgelabel1,edgelabel2)
-
-
 #Note that the attribute list can have fake names; they get translated to actual attrbite values based on their ordinal position
 
+
 Nodes(student:id1,id2) :- STUDENTS(id1,id2)
-
 Nodes(registration:id1,id2,id3) :- REGISTRATIONS(id1,id2,id3)
-
 Nodes(class:id1,id2,id3,id4,id5,id6) :- CLASSES(id1,id2,id3,id4,id5,id6)
-
 Nodes(room:id1,id2,id3) :- ROOMS(id1,id2,id3)
 
+
 Edges(registration-id1,id2) :- STUDENTS(id1, _), REGISTRATIONS(id2, id1,_)
-
 Edges(hadClassInRoom-id1,id2,id3) :- STUDENTS(id1, _), REGISTRATIONS(id2, id1, _), CLASSES(id2, _, _, _, _, id3), ROOMS(id3,_,_)
+Edges(hadClassWith-id1,id3) :- STUDENTS(id1, _), REGISTRATIONS(id2, id1, _), REGISTRATIONS(id2, id3, _), STUDENTS(id3, _)
 
-Graph(school) :- Nodes(student,registration,class,room), Edges(hadClassInRoom,registration)
+Graph(school) :- Nodes(student,registration,class,room), Edges(hadClassInRoom,registration,hadClassWith)
