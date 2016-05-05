@@ -150,6 +150,7 @@ public class TestGraphDefinition {
                 if (!distances.containsKey(v)){
                     Integer current_distance = distances.get(node);
                     distances.put(v, current_distance+1);
+                    queue.add(v);
                 }
             }
         }
