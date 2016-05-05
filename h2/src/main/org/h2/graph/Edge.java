@@ -35,7 +35,7 @@ public class Edge {
     }
 
     public Vertex getDstVertex() {
-        return dstV;
+        return getVertex(Direction.OUT);
     }
 
     public Object getId() {
@@ -57,11 +57,12 @@ public class Edge {
     }
 
     public Vertex getVertex(Direction direction) {
-        if (direction == Direction.IN || direction == Direction.OUT || direction == Direction.BOTH) {
-            // return the Vertex lazily;
-            return null;
+        if (direction == Direction.OUT) {
+            return dstV;
+        } else if ( direction == Direction.IN) {
+            return srcV;
         } else {
-            throw new IllegalArgumentException("direction must be IN or OUT or BOTH");
+            throw new IllegalArgumentException("direction must be IN or OUT");
         }
     }
 

@@ -73,7 +73,24 @@ public class Vertex {
     }
 
     public Iterable<Vertex> getVertices(Direction direction, String... labels) {
-        return null;
+        Iterable<Edge> edges = getEdges(direction, labels);
+        List<Vertex> vertices = new ArrayList<Vertex>();
+        for (Edge e: inEdges) {
+            vertices.add(e.getVertex(reverseDirection(direction)));
+        }
+        return vertices;
+    }
+
+    public Direction reverseDirection(Direction direction) {
+        if (direction == Direction.IN){
+            return Direction.OUT;
+        }
+        else if (direction == Direction.OUT) {
+            return Direction.IN;
+        }
+        else {
+            return Direction.BOTH;
+        }
     }
 
     // returns the names of the properties of the node

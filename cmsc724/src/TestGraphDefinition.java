@@ -15,6 +15,10 @@ import com.tinkerpop.blueprints.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 import java.sql.SQLException;
 import load.SchoolLoader;
 
@@ -61,7 +65,24 @@ public class TestGraphDefinition {
         eRegistrationSchema.addJoin(
             tStudents, tStudents.getColumn("STUDENT_ID"),
             tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+            
         );
+
+        // create a "classmates" edge
+        EdgeSchema eClassmatesSchema = new EdgeSchema(dbSession, "hadClassWith");
+        eClassmatesSchema.addJoin(
+            tStudents, tStudents.getColumn("STUDENT_ID"),
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+        );
+        eClassmatesSchema.addJoin(
+            tRegistrations, tRegistrations.getColumn("CLASS_ID"),
+            tRegistrations, tRegistrations.getColumn("CLASS_ID")
+        );
+        eClassmatesSchema.addJoin(
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID"),
+            tStudents, tStudents.getColumn("STUDENT_ID")
+        );
+
 
         // an edge with multiple joins representing rooms a user has had
         // class in
@@ -90,7 +111,7 @@ public class TestGraphDefinition {
         graphSchema.vertexSchemas.put(vRoomSchema.getLabel(), vRoomSchema);
         graphSchema.edgeSchemas.put(eRegistrationSchema.getLabel(), eRegistrationSchema);
         graphSchema.edgeSchemas.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
-
+        graphSchema.edgeSchemas.put(eClassmatesSchema.getLabel(), eClassmatesSchema);
     }
 
 
@@ -102,11 +123,43 @@ public class TestGraphDefinition {
         try {
             testCreateSingleJoinEdge();
             testCreateMultipleJoinEdge();
+            testClassmatesEdge();
+            testBFS();
             //testGetAllVertices();
             //testGetVerticesByAttribute();
             //testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
+        }
+    }
+
+    public void testBFS() {
+        List<Vertex> vertices = graphSchema.vertexSchemas.get("student").findAll();
+        EdgeSchema eSchema = graphSchema.edgeSchemas.get("hadClassWith");
+        List<Edge> edges = eSchema.connectVertices(vertices, vertices);
+        // run BFS
+        Map<Vertex, Integer> distances = new HashMap<Vertex, Integer>();
+        Queue queue = new LinkedList();
+        Vertex rootNode = vertices.get(0);
+        queue.add(rootNode);
+        distances.put(rootNode, 0);
+        while(!queue.isEmpty()) {
+            Vertex node = (Vertex)queue.remove();
+            for (Vertex v: node.getVertices(Direction.OUT)){
+                v.print();
+                if (!distances.containsKey(v)){
+                    Integer current_distance = distances.get(node);
+                    distances.put(v, current_distance+1);
+                }
+            }
+        }
+        // show results
+        for (Map.Entry<Vertex, Integer> entry : distances.entrySet()){
+            Vertex v = entry.getKey();
+            Integer d = entry.getValue();
+            rootNode.print();
+            System.out.println("is " + d + " hops from " + eSchema.getLabel());
+            v.print();
         }
     }
 
@@ -145,6 +198,30 @@ public class TestGraphDefinition {
 
     // }
 
+    public void testClassmatesEdge() {
+        System.out.println("\nTEST: Creating a multiple join edge\n======================");
+        // create all the vertices from the vertexSchemas and add them to the Graph
+        List<Vertex> vertices = graphSchema.vertexSchemas.get("student").findAll();
+        EdgeSchema eSchema = graphSchema.edgeSchemas.get("hadClassWith");
+        List<Edge> edges = eSchema.connectVertices(vertices, vertices);
+        for (Vertex v: vertices) {
+            for (Vertex dstV: v.getVertices(Direction.OUT)){
+                v.print();
+                System.out.println(eSchema.getLabel());
+                // System.out.println("destination vertex is ");
+                dstV.print();
+            }
+            // for (Edge e: v.getEdges(Direction.OUT)){
+            //     Vertex dstV = e.getDstVertex();
+            //     // System.out.println("source vertex is ");
+            //     v.print();
+            //     System.out.println(e.getLabel());
+            //     // System.out.println("destination vertex is ");
+            //     dstV.print();
+            // }
+        }
+    }
+
     public void testCreateMultipleJoinEdge() {
         System.out.println("\nTEST: Creating a multiple join edge\n======================");
         // create all the vertices from the vertexSchemas and add them to the Graph
@@ -167,8 +244,8 @@ public class TestGraphDefinition {
     public void testCreateSingleJoinEdge() {
         System.out.println("\nTEST: Create a single join edge \n======================");
         // create all the vertices from the vertexSchemas and add them to the Graph
-        List<Vertex> srcVertices = graphSchema.vertexSchemas.get("student").findAll();
-        List<Vertex> dstVertices = graphSchema.vertexSchemas.get("registration").findAll();
+        List<Vertex> dstVertices = graphSchema.vertexSchemas.get("student").findAll();
+        List<Vertex> srcVertices = graphSchema.vertexSchemas.get("registration").findAll();
         EdgeSchema eSchema = graphSchema.edgeSchemas.get("registration");
         List<Edge> edges = eSchema.connectVertices(srcVertices, dstVertices);
         for (Vertex srcV: srcVertices) {

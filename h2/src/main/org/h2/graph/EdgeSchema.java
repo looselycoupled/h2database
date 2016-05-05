@@ -103,7 +103,7 @@ public class EdgeSchema {
             ArrayList<Row> srcRows = new ArrayList<Row>();
             srcRows.add(srcV.row);
             currRowsList.add(srcRows);
-            int counter = 0;// let's us figure out
+            int counter = 0;// let's us figure out when we should join with a vertex
             for (JoinSchema j: joins) {
                 // candidate edges 
                 //   - a candidate edge is a list of rows that so far extend over the join
@@ -125,10 +125,13 @@ public class EdgeSchema {
                             // TODO - assumes the join value is an int
                             int dst_value = dstV.getProperty(j.targetColumn.getName()).getInt();
                             if (dst_value == src_value){
-                                Edge edge = new Edge(srcV, dstV, rows, this);
-                                edges.add(edge);
-                                srcV.addEdge(edge, Direction.OUT);
-                                dstV.addEdge(edge, Direction.IN);
+                                // check to make sure this is not a self-referential edge
+                                if (srcV.getId() != dstV.getId()) {
+                                    Edge edge = new Edge(srcV, dstV, rows, this);
+                                    edges.add(edge);
+                                    srcV.addEdge(edge, Direction.OUT);
+                                    dstV.addEdge(edge, Direction.IN);
+                                }
                             }
                         }
                     } else { // otherwise, scan the target table - TODO use index
