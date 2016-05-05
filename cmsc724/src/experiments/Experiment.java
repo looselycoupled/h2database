@@ -4,12 +4,16 @@
 package experiments;
 
 import java.sql.SQLException;
-
+import java.sql.Connection;
+import load.Loader;
 
 /**
  * Abstract class for loading data into a new in-memory database
  */
 public abstract class Experiment {
+
+    public Loader loader;
+    public Connection conn;
 
     /**
      *
@@ -20,13 +24,13 @@ public abstract class Experiment {
             setup();
             long endTime = System.nanoTime();
             double duration = (endTime - startTime) * 0.000000001;
-            System.out.println(String.format("Setup phase completed in %.2f seconds", duration));
+            System.out.println(String.format("\n==\nSetup phase completed in %.2f seconds\n==\n", duration));
 
             startTime = System.nanoTime();
             conduct();
             endTime = System.nanoTime();
             duration = (endTime - startTime) * 0.000000001;
-            System.out.println(String.format("Setup phase completed in %.2f seconds", duration));
+            System.out.println(String.format("\n==\nExperimental phase completed in %.2f seconds\n==\n", duration));
         } catch (SQLException e) {
 
         }
