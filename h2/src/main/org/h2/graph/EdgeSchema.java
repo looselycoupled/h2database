@@ -80,12 +80,13 @@ public class EdgeSchema {
      * edge relationship.
      */
     public void addJoin(Table sourceTable, Column sourceColumn, Table targetTable,
-        Column targetColumn) throws Exception {
+        Column targetColumn) {
 
         // make sure this join starts with the same table we currently end with
         if (joins.size() > 0) {
             if (sourceTable.getName() != getLastTable().getName()) {
-                throw new Exception("SourceTable does not match last table joined.");
+                System.out.println("Error:SourceTable does not match last table joined.");
+                System.exit(1);
             }
         }
         // add new joinschema object

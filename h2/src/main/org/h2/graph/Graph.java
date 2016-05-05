@@ -11,12 +11,18 @@ import java.util.List;
 public class Graph {
 
     private List<Vertex> vertices;
+    private List<Edge> edges;
 
     public Graph() {
         vertices = new ArrayList<Vertex>();
     }
 
-    public Iterable<Vertex> getVertices() {
+    public Graph(List<Vertex> vertices, List<Edge> edges) {
+        this.vertices = vertices;
+        this.edges = edges;
+    }
+
+    public List<Vertex> getVertices() {
         //  Return an iterable to all the vertices in the graph.
         return vertices;
     }
@@ -39,9 +45,9 @@ public class Graph {
         return null;
     }
 
-    public Iterable<Edge> getEdges() {
+    public List<Edge> getEdges() {
         //  Return an iterable to all the edges in the graph.
-        return null;
+        return edges;
     }
 
     public Iterable<Edge> getEdges(String key, Object value) {
@@ -53,8 +59,6 @@ public class Graph {
         //  Return the vertex referenced by the provided object identifier.
         return null;
     }
-
-    
 
     public Iterable<com.tinkerpop.blueprints.Vertex> getVertices(String key, Object value) {
         //  Return an iterable to all the vertices in the graph that have a particular key/value property.
