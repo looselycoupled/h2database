@@ -1,3 +1,10 @@
+/**
+ * Breadth first search experiment using SQL
+ *
+ * This problem may be solveable in one go if H2 supported recursive queries properly
+ *     http://www.vertabelo.com/blog/technical-articles/sql-recursive-queries
+ *     http://www.h2database.com/html/advanced.html#recursive_queries
+ */
 
 import experiments.Experiment;
 import load.PubsLoader;
@@ -5,6 +12,9 @@ import java.sql.*;
 import org.h2.jdbcx.JdbcConnectionPool;
 import java.util.Random;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Breadth first search experiment using SQL
@@ -37,13 +47,56 @@ public class BFSExperimentSQL extends Experiment
      */
     @Override
     public void conduct() {
-        proofOfConcept();
+        // proofOfConcept();
+
+        List<Integer> parentIDs = new ArrayList<Integer>();
+        List<Integer> ignoredIDs = new ArrayList<Integer>();
+        parentIDs.add(18533);
+        ignoredIDs.add(18533);
+
+        // getChildren(parentIDs, ignoreIDs);
+        System.out.println("\n\nFINAL: " + getChildren(parentIDs, ignoredIDs).size() );
+    }
+
+
+    private String joinInts(List<Integer> list) {
+        return list.stream().map(Object::toString).collect(Collectors.joining(", "));
+    }
+
+    public List<Integer> getChildren(List<Integer> parentIDs, List<Integer> ignoredIDs) {
+        List<Integer> childIDs = new ArrayList<Integer>();
+        Statement stmt = null;
+
+        String query = "select distinct author.id"
+            + " from author join authorpub on author.id = authorpub.aid "
+            + " where authorpub.pid in (select pid from authorpub where aid in (%s)) "
+            + " and author.id not in (%s) ";
+        query = String.format(query, joinInts(parentIDs), joinInts(ignoredIDs));
+        // System.out.println(query + "\n\n");
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                childIDs.add(rs.getInt("ID"));
+                ignoredIDs.add(rs.getInt("ID"));
+            }
+        } catch (SQLException e ) {
+            System.out.println(e);
+        }
+
+        System.out.println(childIDs.size());
+
+        if (!childIDs.isEmpty()) {
+            getChildren(childIDs, ignoredIDs);
+        }
+        return childIDs;
     }
 
     /**
      * Example method to perform some basic SQL queries
      */
-    public void proofOfConcept() {
+    /*public void proofOfConcept() {
         System.out.println("RANDOM IDs from AUTHOR table\n=========");
         System.out.println(randomIdFromTable("author"));
         System.out.println(randomIdFromTable("author"));
@@ -65,7 +118,7 @@ public class BFSExperimentSQL extends Experiment
         } catch (SQLException e ) {
             System.out.println(e);
         }
-    }
+    } */
 
     /**
      * Returns largest ID from given table and caches value in the maxTableIdMap
