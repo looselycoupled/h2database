@@ -3,7 +3,8 @@ SHELL := /bin/sh
 LOCALPATH := $(CURDIR)
 
 JARPATHS = ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar"
-JVMMEMOPTS = -Xms4096m -Xmx6144m
+# JVMMEMOPTS = -Xms4096m -Xmx6144m
+JVMMEMOPTS = -Xms6144m -Xmx8192m
 
 .PHONY: clean build
 
