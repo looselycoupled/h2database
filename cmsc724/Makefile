@@ -2,23 +2,26 @@ SHELL := /bin/sh
 
 LOCALPATH := $(CURDIR)
 
+JARPATHS = ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar"
+JVMMEMOPTS = -Xms4096m -Xmx6144m
+
 .PHONY: clean build
 
 build:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar" ./src/TestDSLGraphDefinition.java
+	javac -cp $(JARPATHS) ./src/TestDSLGraphDefinition.java
 
 run:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/TestGraphDefinition.java
-	java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" TestGraphDefinition
+	javac -cp $(JARPATHS) ./src/TestGraphDefinition.java
+	java -cp $(JARPATHS) TestGraphDefinition
 
 testdriver:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/TestDriver.java
-	java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" TestDriver
+	javac -cp $(JARPATHS) ./src/TestDriver.java
+	java -cp $(JARPATHS) TestDriver
 
 
 bfssql:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/BFSExperimentSQL.java
-	java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" BFSExperimentSQL
+	javac -cp $(JARPATHS) ./src/BFSExperimentSQL.java
+	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL
 
 
 
