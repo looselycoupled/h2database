@@ -100,12 +100,9 @@ public class BFSExperimentSQL extends Experiment
      * upper bound.
      */
     public Integer randomIdFromTable(String table) {
-        Integer id = 0;
-        Integer max = maxIdFromTable(table);
-
         Random generator = new Random();
-        id = generator.nextInt(max - 1 + 1) + 1;
-        return id;
+        Integer max = maxIdFromTable(table);
+        return generator.nextInt(max - 1 + 1) + 1;
     }
 
 
