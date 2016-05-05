@@ -26,14 +26,14 @@ public class PubsLoader extends Loader {
      */
     @Override
     public void work() throws SQLException {
-        conn.createStatement().executeUpdate("CREATE TABLE Author (a_id INT PRIMARY KEY, name VARCHAR(255)) "
+        conn.createStatement().executeUpdate("CREATE TABLE Author (id INT PRIMARY KEY, name VARCHAR(1024)) "
           + "AS SELECT * FROM CSVREAD('data/authors.csv');");
 
-        conn.createStatement().executeUpdate("CREATE TABLE Publication (p_id INT PRIMARY KEY, title VARCHAR(255)) "
+        conn.createStatement().executeUpdate("CREATE TABLE Publication (id INT PRIMARY KEY, title VARCHAR(2048), cid INT) "
           + "AS SELECT * FROM CSVREAD('data/publications.csv');");
 
-        conn.createStatement().executeUpdate("CREATE TABLE AuthorPub (a_id INT, p_id INT) "
-          + "AS SELECT * FROM CSVREAD('data/authorpub.csv');");
+        conn.createStatement().executeUpdate("CREATE TABLE AuthorPub (aid INT, pid INT) "
+          + "AS SELECT * FROM CSVREAD('data/authorpublications.csv');");
     }
 
 }

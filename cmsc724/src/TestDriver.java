@@ -91,9 +91,17 @@ public class TestDriver
   }
 
   public void start() throws SQLException {
-      SchoolLoader loader = new SchoolLoader();
-    //   PubsLoader loader = new PubsLoader();
+      System.out.println("Pubs database load starting...");
+      long startTime = System.nanoTime(); //System.currentTimeMillis();
+
+    //   SchoolLoader loader = new SchoolLoader();
+      PubsLoader loader = new PubsLoader();
       loader.load();
+
+      long endTime = System.nanoTime();
+      double duration = (endTime - startTime) * 0.000000001;
+      System.out.println(String.format("Pubs database loaded in %.2f seconds", duration));
+
       work();
   }
 
