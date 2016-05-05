@@ -29,8 +29,8 @@ public class PubsLoader extends Loader {
         conn.createStatement().executeUpdate("CREATE TABLE Author (id INT PRIMARY KEY, name VARCHAR(1024)) "
           + "AS SELECT * FROM CSVREAD('data/authors.csv');");
 
-        conn.createStatement().executeUpdate("CREATE TABLE Publication (id INT PRIMARY KEY, title VARCHAR(2048), cid INT) "
-          + "AS SELECT * FROM CSVREAD('data/publications.csv');");
+        // conn.createStatement().executeUpdate("CREATE TABLE Publication (id INT PRIMARY KEY, title VARCHAR(2048), cid INT) "
+        //   + "AS SELECT * FROM CSVREAD('data/publications.csv');");
 
         conn.createStatement().executeUpdate("CREATE TABLE AuthorPub (aid INT, pid INT) "
           + "AS SELECT * FROM CSVREAD('data/authorpublications.csv');");
