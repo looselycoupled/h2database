@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class BFSExperimentSQL extends Experiment
 {
-
+    public Integer numOfRuns = 1;
     private HashMap<String, Integer> maxTableIdMap = new HashMap<String, Integer>();
 
     /**
@@ -30,9 +30,11 @@ public class BFSExperimentSQL extends Experiment
     @Override
     public void setup() {
         try {
+            // load database
             loader = new PubsLoader();
             loader.load();
 
+            // store a connection to this database
             JdbcConnectionPool ds = JdbcConnectionPool.create("jdbc:h2:mem:" + loader.dbName + ";DB_CLOSE_DELAY=-1", loader.username, loader.password);
             conn = ds.getConnection();
 
@@ -47,22 +49,46 @@ public class BFSExperimentSQL extends Experiment
      */
     @Override
     public void conduct() {
-        // proofOfConcept();
 
-        List<Integer> parentIDs = new ArrayList<Integer>();
-        List<Integer> ignoredIDs = new ArrayList<Integer>();
-        parentIDs.add(18533);
-        ignoredIDs.add(18533);
+        // perform requested number of runs
+        for (int i = 0; i < numOfRuns; i++) {
 
-        // getChildren(parentIDs, ignoreIDs);
-        System.out.println("\n\nFINAL: " + getChildren(parentIDs, ignoredIDs).size() );
+            long startTime = System.nanoTime();
+            Integer startID = randomIdFromTable("author");
+            System.out.println(String.format("\n\n=====\nStarting new run with ID: %d\n=====", startID));
+
+            if (false) {
+                // perform recursive search
+                List<Integer> parentIDs = new ArrayList<Integer>();
+                List<Integer> ignoredIDs = new ArrayList<Integer>();
+                parentIDs.add(startID);
+                ignoredIDs.add(startID);
+
+                getChildren(parentIDs, ignoredIDs);
+            } else {
+                // perform non-recursive search
+                nonRecursiveBFS(startID);
+            }
+
+            // report execution time
+            long endTime = System.nanoTime();
+            double duration = (endTime - startTime) * 0.000000001;
+            System.out.println(String.format("\nExecution time for this iteration: %.2f seconds\n", duration));
+        }
+
     }
 
 
+    /**
+     * Convenience method to join list of ints into a string
+     */
     private String joinInts(List<Integer> list) {
         return list.stream().map(Object::toString).collect(Collectors.joining(", "));
     }
 
+    /**
+     * Recursively explore connected graph by performing a breadth first search
+     */
     public List<Integer> getChildren(List<Integer> parentIDs, List<Integer> ignoredIDs) {
         List<Integer> childIDs = new ArrayList<Integer>();
         Statement stmt = null;
@@ -85,7 +111,10 @@ public class BFSExperimentSQL extends Experiment
             System.out.println(e);
         }
 
-        System.out.println(childIDs.size());
+        // System.out.println(childIDs.size());
+        System.out.println("\nCurrent IDs: " + Integer.toString(childIDs.size()));
+        System.out.println("Known IDs: " + Integer.toString(ignoredIDs.size()));
+
 
         if (!childIDs.isEmpty()) {
             getChildren(childIDs, ignoredIDs);
@@ -93,32 +122,43 @@ public class BFSExperimentSQL extends Experiment
         return childIDs;
     }
 
-    /**
-     * Example method to perform some basic SQL queries
-     */
-    /*public void proofOfConcept() {
-        System.out.println("RANDOM IDs from AUTHOR table\n=========");
-        System.out.println(randomIdFromTable("author"));
-        System.out.println(randomIdFromTable("author"));
-        System.out.println(randomIdFromTable("author") + "\n");
-
-
-        System.out.println("Looking for professor in AUTHOR table\n=========");
+    public List<Integer> nonRecursiveGetChildren(List<Integer> parentIDs, List<Integer> ignoredIDs) {
+        List<Integer> childIDs = new ArrayList<Integer>();
         Statement stmt = null;
-        String query = "select * from author where name like '%Amol Deshpande%'";
+
+        String query = "select distinct author.id"
+            + " from author join authorpub on author.id = authorpub.aid "
+            + " where authorpub.pid in (select pid from authorpub where aid in (%s)) "
+            + " and author.id not in (%s) ";
+        query = String.format(query, joinInts(parentIDs), joinInts(ignoredIDs));
+
         try {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                String aname = rs.getString("NAME");
-                Integer aid = rs.getInt("ID");
-                System.out.println(aname);
-                System.out.println(aid);
+                childIDs.add(rs.getInt("ID"));
             }
         } catch (SQLException e ) {
             System.out.println(e);
         }
-    } */
+        return childIDs;
+    }
+
+    public void nonRecursiveBFS(Integer startId) {
+        List<Integer> knownIDs = new ArrayList<Integer>();
+        knownIDs.add(startId);
+
+        List<Integer> currentIDs = new ArrayList<Integer>();
+        currentIDs.add(startId);
+
+        while (!currentIDs.isEmpty()) {
+            System.out.println("\nCurrent IDs: " + Integer.toString(currentIDs.size()));
+            System.out.println("Known IDs: " + Integer.toString(knownIDs.size()));
+            currentIDs = nonRecursiveGetChildren(currentIDs, knownIDs);
+            knownIDs.addAll(currentIDs);
+        }
+
+    }
 
     /**
      * Returns largest ID from given table and caches value in the maxTableIdMap
