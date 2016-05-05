@@ -39,12 +39,14 @@ public class EdgeSchema {
         public Column sourceColumn;
         public Table targetTable;
         public Column targetColumn;
+        public List<String> targetTableAttributes;
 
-        public JoinSchema(Table sourceTable, Column sourceColumn, Table targetTable, Column targetColumn) {
+        public JoinSchema(Table sourceTable, Column sourceColumn, Table targetTable, Column targetColumn, List<String> targetTableAttributes) {
             this.sourceTable = sourceTable;
             this.sourceColumn = sourceColumn;
             this.targetTable = targetTable;
             this.targetColumn = targetColumn;
+            this.targetTableAttributes = targetTableAttributes;
         }
     }
 
@@ -80,7 +82,7 @@ public class EdgeSchema {
      * edge relationship.
      */
     public void addJoin(Table sourceTable, Column sourceColumn, Table targetTable,
-        Column targetColumn) throws Exception {
+        Column targetColumn, List<String> targetTableAttributes) throws Exception {
 
         // make sure this join starts with the same table we currently end with
         if (joins.size() > 0) {
@@ -89,7 +91,7 @@ public class EdgeSchema {
             }
         }
         // add new joinschema object
-        JoinSchema j = new JoinSchema(sourceTable, sourceColumn, targetTable, targetColumn);
+        JoinSchema j = new JoinSchema(sourceTable, sourceColumn, targetTable, targetColumn, targetTableAttributes);
         joins.add(j);
     }
 
@@ -105,7 +107,7 @@ public class EdgeSchema {
             currRowsList.add(srcRows);
             int counter = 0;// let's us figure out when we should join with a vertex
             for (JoinSchema j: joins) {
-                // candidate edges 
+                // candidate edges
                 //   - a candidate edge is a list of rows that so far extend over the join
                 //   - ex. initially the only candidate edge is the row r1 of the source vertex
                 //   - ex. then, we join r1 with two rows r2, r3 from table t2

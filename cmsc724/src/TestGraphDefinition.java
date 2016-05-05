@@ -58,29 +58,36 @@ public class TestGraphDefinition {
         VertexSchema vClassSchema = new VertexSchema(dbSession, tClasses, "class");
         VertexSchema vRoomSchema = new VertexSchema(dbSession, tRooms, "room");
 
+        // TODO: fake attributes until this is fully implemented
+        List<String> fakeAttributesList = new ArrayList<String>();
+
         // a simple edge denoting registrations of a student
         // an edge only exists if there exists a node on either side of it
         // edge schema gives us one or more join that we must traverse
         EdgeSchema eRegistrationSchema = new EdgeSchema(dbSession, "registration");
         eRegistrationSchema.addJoin(
             tStudents, tStudents.getColumn("STUDENT_ID"),
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
-            
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID"),
+            fakeAttributesList
+
         );
 
         // create a "classmates" edge
         EdgeSchema eClassmatesSchema = new EdgeSchema(dbSession, "hadClassWith");
         eClassmatesSchema.addJoin(
             tStudents, tStudents.getColumn("STUDENT_ID"),
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID"),
+            fakeAttributesList
         );
         eClassmatesSchema.addJoin(
             tRegistrations, tRegistrations.getColumn("CLASS_ID"),
-            tRegistrations, tRegistrations.getColumn("CLASS_ID")
+            tRegistrations, tRegistrations.getColumn("CLASS_ID"),
+            fakeAttributesList
         );
         eClassmatesSchema.addJoin(
             tRegistrations, tRegistrations.getColumn("STUDENT_ID"),
-            tStudents, tStudents.getColumn("STUDENT_ID")
+            tStudents, tStudents.getColumn("STUDENT_ID"),
+            fakeAttributesList
         );
 
 
@@ -89,17 +96,20 @@ public class TestGraphDefinition {
         EdgeSchema eHadClassInRoomSchema = new EdgeSchema(dbSession, "hadClassInRoom");
         eHadClassInRoomSchema.addJoin(
             tStudents, tStudents.getColumn("STUDENT_ID"),
-            tRegistrations, tRegistrations.getColumn("STUDENT_ID")
+            tRegistrations, tRegistrations.getColumn("STUDENT_ID"),
+            fakeAttributesList
         );
         eHadClassInRoomSchema.addJoin(
             tRegistrations, tRegistrations.getColumn("CLASS_ID"),
-            tClasses, tClasses.getColumn("CLASS_ID")
+            tClasses, tClasses.getColumn("CLASS_ID"),
+            fakeAttributesList
         );
         eHadClassInRoomSchema.addJoin(
             tClasses, tClasses.getColumn("ROOM_ID"),
-            tRooms, tRooms.getColumn("ROOM_ID")
+            tRooms, tRooms.getColumn("ROOM_ID"),
+            fakeAttributesList
         );
-        
+
 
         //vStudentSchema.outgoingEdges.put(eHadClassInRoomSchema.getLabel(), eHadClassInRoomSchema);
 
