@@ -89,7 +89,7 @@ public class Vertex {
         Iterable<Edge> edges = getEdges(direction, labels);
         List<Vertex> vertices = new ArrayList<Vertex>();
         for (Edge e: edges) {
-            Vertex v = e.getVertex(reverseDirection(direction));
+            Vertex v = e.getVertex(direction);
             vertices.add(v);
         }
         return vertices;
