@@ -12,6 +12,6 @@ Nodes(author:name) :- Author(id,name)
 #specifies that coauthor is the edge type (Edge Label)
 #edge attribute is publication id - pid
 
-Edges(coauthor-pid) :- AuthorPub(id1, pid), AuthorPub(id2,pid)
+Edges(coauthored-pid) :- AuthorPub(id1, pid), AuthorPub(id2,pid)
 
-Graph() :- Nodes(author), Edges(coauthor)
+Graph(coauthor) :- Nodes(author), Edges(coauthored)
