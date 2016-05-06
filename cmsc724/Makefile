@@ -38,6 +38,11 @@ dfssql:
 	javac -cp $(JARPATHS) ./src/DFSExperimentSQL.java
 	java -cp $(JARPATHS) $(JVMMEMOPTS) DFSExperimentSQL
 
+
+randvsql:
+	javac -cp $(JARPATHS) ./src/RandomVertexExperimentSQL.java
+	java -cp $(JARPATHS) $(JVMMEMOPTS) RandomVertexExperimentSQL
+
 # Clean build files
 clean:
 	find . -name "*.class" -print0 | xargs -0 rm -rf
