@@ -34,6 +34,10 @@ bfsh2:
 	java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" BFSExperimentH2
 
 
+dfssql:
+	javac -cp $(JARPATHS) ./src/DFSExperimentSQL.java
+	java -cp $(JARPATHS) $(JVMMEMOPTS) DFSExperimentSQL
+
 # Clean build files
 clean:
 	find . -name "*.class" -print0 | xargs -0 rm -rf
