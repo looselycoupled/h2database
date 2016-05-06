@@ -131,9 +131,9 @@ public class TestGraphDefinition {
     public void runTests() {
 
         try {
-            testCreateSingleJoinEdge();
-            testCreateMultipleJoinEdge();
-            testClassmatesEdge();
+            //testCreateSingleJoinEdge();
+            //testCreateMultipleJoinEdge();
+            //testClassmatesEdge();
             testBFS();
             //testGetAllVertices();
             //testGetVerticesByAttribute();
