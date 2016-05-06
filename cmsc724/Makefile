@@ -30,8 +30,8 @@ bfssql:
 	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL
 
 bfsh2:
-	javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/BFSExperimentH2.java
-	java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" BFSExperimentH2
+	javac -cp $(JARPATHS) ./src/BFSExperimentH2.java
+	java -cp $(JARPATHS) BFSExperimentH2
 
 
 dfssql:
