@@ -30,9 +30,10 @@ public class VertexSchema {
     private String label; // the "type" of the vertex
     public Table sourceTable;
     public Map<String, Integer> attributeMapping;
-
-    public HashMap<String, EdgeSchema> incomingEdges = new HashMap<String, EdgeSchema>();
-    public HashMap<String, EdgeSchema> outgoingEdges = new HashMap<String, EdgeSchema>();
+    // should have a list of outgoing edge schemas
+    // and a list of incoming edge schemas
+    public EdgeSchema edgeSchema;
+    private ArrayList<Vertex> vertices;
 
     /**
      * Constructor accepts a reference to the underlying table
@@ -57,16 +58,22 @@ public class VertexSchema {
 
     public Set<String> getPropertyKeys() {
         return attributeMapping.keySet();
-    } 
+    }
+
+    public void addEdgeSchema(EdgeSchema es){
+        edgeSchema = es;
+    }
 
     /**
      * Returns a list of all vertices in the underlying relation
      */
     public List<Vertex> findAll() {
-        List<Vertex> vertices = new ArrayList<Vertex>();
-        Cursor cursor = sourceTable.getScanIndex(session).find(session, null, null);
-        while (cursor.next()) {
-            vertices.add(new Vertex(UUID.randomUUID(), cursor.get(), this));
+        if (vertices == null){
+            vertices = new ArrayList<Vertex>();
+            Cursor cursor = sourceTable.getScanIndex(session).find(session, null, null);
+            while (cursor.next()) {
+                vertices.add(new Vertex(UUID.randomUUID(), cursor.get(), this));
+            }
         }
         return vertices;
     }

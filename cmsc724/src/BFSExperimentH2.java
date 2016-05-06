@@ -31,7 +31,7 @@ public class BFSExperimentH2 extends Experiment
     private String dbName;
     private Session dbSession;
     private GraphSchema graphSchema = new GraphSchema("coauthor");
-    private Integer numIterations = 50;
+    private Integer numIterations = 1;
     private double totalTime = 0.0;
     private double loadTime;
 
@@ -63,8 +63,11 @@ public class BFSExperimentH2 extends Experiment
         double duration;
         Random rand = new Random();
         startTime = System.nanoTime();
-        loadSchemas();
-        Graph g = makeGraph();
+        GraphSchema gs = makeGraphSchema();
+        Graph g = makeGraph(gs);
+        //testStuff(g);
+        // Vertex v = g.getVertices().get(15);
+        // testBFS(g, v);
         endTime = System.nanoTime();
         loadTime = (endTime - startTime) * 0.000000001;
         System.out.println(String.format("\n==\nGraph creation phase completed in %.2f seconds\n==\n", loadTime));
@@ -73,7 +76,7 @@ public class BFSExperimentH2 extends Experiment
         for (int i = 0; i < numIterations; i++){
             
             int index = rand.nextInt(g.getVertices().size());
-            Vertex v = g.getVertices().get(index);
+            Vertex v = g.getVertices().get(18532);// get Amol
             startTime = System.nanoTime();
             testBFS(g, v);
             endTime = System.nanoTime();
@@ -84,10 +87,34 @@ public class BFSExperimentH2 extends Experiment
         System.out.println(String.format("\n==\n50 runs of BFS completed in %.2f seconds\n==\n", totalTime));
     }
 
+    public void testStuff(Graph g) {
+        Vertex v = g.getVertices().get(15);
+        for (Edge e: v.getEdges(Direction.OUT)){
+            Vertex dstV = e.getDstVertex();
+            System.out.println("source vertex is ");
+            v.print();
+            System.out.println("edge type is " + e.getLabel());
+            System.out.println("destination vertex is ");
+            dstV.print();
+        }
+        for (Vertex dstV: v.getVertices(Direction.OUT)){
+            System.out.println("source vertex is ");
+            v.print();
+            // System.out.println("edge type is " + e.getLabel());
+            System.out.println("destination vertex is ");
+            dstV.print();
+        }
+    }
+
     /**
      * Grabs table/column references and creates appropriate graph schema objects
      */
-    public void loadSchemas() throws SQLException {
+    public Graph makeGraph(GraphSchema graphSchema) throws SQLException {
+        List<Vertex> vertices = graphSchema.vertexSchemas.get("author").findAll();
+        return new Graph(vertices);
+    }
+
+    public GraphSchema makeGraphSchema() {
         Database db = Engine.getInstance().getDatabases().get(dbName);
         dbSession = db.getSystemSession();
 
@@ -100,28 +127,33 @@ public class BFSExperimentH2 extends Experiment
         EdgeSchema eCoauthorSchema = new EdgeSchema(dbSession, "coauthored");
         eCoauthorSchema.addJoin(
             tAuthors, tAuthors.getColumn("ID"),
-            tAuthorPublications, tAuthorPublications.getColumn("AID")
+            tAuthorPublications, tAuthorPublications.getColumn("AID"), new ArrayList<String>()
         );
         eCoauthorSchema.addJoin(
             tAuthorPublications, tAuthorPublications.getColumn("PID"),
-            tAuthorPublications, tAuthorPublications.getColumn("PID")
+            tAuthorPublications, tAuthorPublications.getColumn("PID"), new ArrayList<String>()
         );
         eCoauthorSchema.addJoin(
             tAuthorPublications, tAuthorPublications.getColumn("AID"),
-            tAuthors, tAuthors.getColumn("ID")
+            tAuthors, tAuthors.getColumn("ID"), new ArrayList<String>()
         );
 
-        // store all these schemas in the graphSchema object
+        eCoauthorSchema.addVertexSchemas(vAuthorSchema, vAuthorSchema);
+        vAuthorSchema.addEdgeSchema(eCoauthorSchema);
+
+        GraphSchema graphSchema = new GraphSchema("coauthors");
+
         graphSchema.vertexSchemas.put(vAuthorSchema.getLabel(), vAuthorSchema);
         graphSchema.edgeSchemas.put(eCoauthorSchema.getLabel(), eCoauthorSchema);
+
+        return graphSchema;
     }
 
-    public Graph makeGraph() {
-        List<Vertex> vertices = graphSchema.vertexSchemas.get("author").findAll();
-        EdgeSchema eSchema = graphSchema.edgeSchemas.get("coauthored");
-        List<Edge> edges = eSchema.connectVertices(vertices, vertices);
-        return new Graph(vertices, edges);
-    }
+    // public Graph makeGraph() {
+    //     EdgeSchema eSchema = graphSchema.edgeSchemas.get("coauthored");
+    //     List<Edge> edges = eSchema.connectVertices(vertices, vertices);
+    //     return new Graph(vertices, edges);
+    // }
 
 
     public void testBFS(Graph g, Vertex rootNode) {
@@ -130,10 +162,12 @@ public class BFSExperimentH2 extends Experiment
         Queue queue = new LinkedList();
         queue.add(rootNode);
         distances.put(rootNode, 0);
+        System.out.println("root node is ");
+        rootNode.print();
         while(!queue.isEmpty()) {
             Vertex node = (Vertex)queue.remove();
             for (Vertex v: node.getVertices(Direction.OUT)){
-                v.print();
+                // v.print();
                 if (!distances.containsKey(v)){
                     Integer current_distance = distances.get(node);
                     distances.put(v, current_distance+1);
@@ -141,20 +175,20 @@ public class BFSExperimentH2 extends Experiment
                 }
             }
         }
-        // // show results
-        // for (Map.Entry<Vertex, Integer> entry : distances.entrySet()){
-        //     Vertex v = entry.getKey();
-        //     Integer d = entry.getValue();
-        //     if (d == 1){
-        //         rootNode.print();
-        //         System.out.println("co-author with ");
-        //         v.print();
-        //     } else if (d > 1){
-        //         rootNode.print();
-        //         System.out.println("is one co-author hop from");
-        //         v.print();
-        //     }
-        // }
+        // show results
+        for (Map.Entry<Vertex, Integer> entry : distances.entrySet()){
+            Vertex v = entry.getKey();
+            Integer d = entry.getValue();
+            if (d == 1){
+                rootNode.print();
+                System.out.println("co-author with ");
+                v.print();
+            } else if (d > 1){
+                rootNode.print();
+                System.out.println("is one co-author hop from");
+                v.print();
+            }
+        }
     }
 
     public void report() {

@@ -27,6 +27,7 @@ public class Vertex {
     private VertexSchema schema;
     private List<Edge> outEdges;
     private List<Edge> inEdges;
+    private boolean foundEdges = false;
 
     /**
      * Vertex needs an id, a reference to the underlying data, 
@@ -60,23 +61,36 @@ public class Vertex {
         }
     }
 
-    public Iterable<Edge> getEdges(Direction direction, String... labels) {
+    public List<Edge> getEdges(Direction direction, String... labels) {
         if (direction == Direction.IN){
+            // currently not running this
             return inEdges;
         }
         else if (direction == Direction.OUT) {
+            if (foundEdges == false){
+                outEdges = findOutEdges();
+                foundEdges = true;
+            }
             return outEdges;
         }
         else {
+            // also not calling this
             return new ArrayList<Edge>() { { addAll(inEdges); addAll(outEdges); } };
         }
+    }
+
+    private List<Edge> findOutEdges() {
+        List<Edge> edges = schema.edgeSchema.connectVertex(this);
+        // System.out.println(edges);
+        return edges;
     }
 
     public Iterable<Vertex> getVertices(Direction direction, String... labels) {
         Iterable<Edge> edges = getEdges(direction, labels);
         List<Vertex> vertices = new ArrayList<Vertex>();
-        for (Edge e: inEdges) {
-            vertices.add(e.getVertex(reverseDirection(direction)));
+        for (Edge e: edges) {
+            Vertex v = e.getVertex(reverseDirection(direction));
+            vertices.add(v);
         }
         return vertices;
     }
