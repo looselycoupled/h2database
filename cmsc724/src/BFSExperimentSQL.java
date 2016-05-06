@@ -71,9 +71,7 @@ public class BFSExperimentSQL extends Experiment
             }
 
             // report execution time
-            long endTime = System.nanoTime();
-            double duration = (endTime - startTime) * 0.000000001;
-            System.out.println(String.format("\nExecution time for this iteration: %.2f seconds\n", duration));
+            timingReport("this iteration", startTime);
         }
 
     }
