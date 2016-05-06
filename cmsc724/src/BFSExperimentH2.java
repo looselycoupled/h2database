@@ -71,10 +71,10 @@ public class BFSExperimentH2 extends Experiment
         endTime = System.nanoTime();
         loadTime = (endTime - startTime) * 0.000000001;
         System.out.println(String.format("\n==\nGraph creation phase completed in %.2f seconds\n==\n", loadTime));
-        
+
         // get random rootnodes for the graph
         for (int i = 0; i < numIterations; i++){
-            
+
             int index = rand.nextInt(g.getVertices().size());
             Vertex v = g.getVertices().get(index);// get Amol
             startTime = System.nanoTime();
