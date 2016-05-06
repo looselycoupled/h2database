@@ -31,7 +31,7 @@ public class BFSExperimentH2 extends Experiment
     private String dbName;
     private Session dbSession;
     private GraphSchema graphSchema = new GraphSchema("coauthor");
-    private Integer numIterations = 1;
+    private Integer numIterations = 50;
     private double totalTime = 0.0;
     private double loadTime;
 
@@ -76,7 +76,7 @@ public class BFSExperimentH2 extends Experiment
         for (int i = 0; i < numIterations; i++){
             
             int index = rand.nextInt(g.getVertices().size());
-            Vertex v = g.getVertices().get(18532);// get Amol
+            Vertex v = g.getVertices().get(index);// get Amol
             startTime = System.nanoTime();
             testBFS(g, v);
             endTime = System.nanoTime();
@@ -84,7 +84,7 @@ public class BFSExperimentH2 extends Experiment
             System.out.println(String.format("\n==\nBFS completed in %.2f seconds\n==\n", duration));
             totalTime += duration;
         }
-        System.out.println(String.format("\n==\n50 runs of BFS completed in %.2f seconds\n==\n", totalTime));
+        //System.out.println(String.format("\n==\n50 runs of BFS completed in %.2f seconds\n==\n", totalTime));
     }
 
     public void testStuff(Graph g) {
@@ -176,19 +176,19 @@ public class BFSExperimentH2 extends Experiment
             }
         }
         // show results
-        for (Map.Entry<Vertex, Integer> entry : distances.entrySet()){
-            Vertex v = entry.getKey();
-            Integer d = entry.getValue();
-            if (d == 1){
-                rootNode.print();
-                System.out.println("co-author with ");
-                v.print();
-            } else if (d > 1){
-                rootNode.print();
-                System.out.println("is one co-author hop from");
-                v.print();
-            }
-        }
+        // for (Map.Entry<Vertex, Integer> entry : distances.entrySet()){
+        //     Vertex v = entry.getKey();
+        //     Integer d = entry.getValue();
+        //     if (d == 1){
+        //         rootNode.print();
+        //         System.out.println("co-author with ");
+        //         v.print();
+        //     } else if (d > 1){
+        //         rootNode.print();
+        //         System.out.println("is one co-author hop from");
+        //         v.print();
+        //     }
+        // }
     }
 
     public void report() {
