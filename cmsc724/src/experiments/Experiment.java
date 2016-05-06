@@ -5,6 +5,8 @@ package experiments;
 
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.util.Date;
+
 import load.Loader;
 
 /**
@@ -19,23 +21,36 @@ public abstract class Experiment {
      *
      */
     public void start() {
+        Date date = new Date();
+        System.out.println("=====\nSYSTEM START\nCurrent time is: " + date.toString() + "\n=====");
+
         try {
             long startTime = System.nanoTime();
             setup();
-            long endTime = System.nanoTime();
-            double duration = (endTime - startTime) * 0.000000001;
-            System.out.println(String.format("\n==\nSetup phase completed in %.2f seconds\n==\n", duration));
+            timingReport("SETUP phase", startTime);
 
             startTime = System.nanoTime();
             conduct();
-            endTime = System.nanoTime();
-            duration = (endTime - startTime) * 0.000000001;
-            System.out.println(String.format("\n==\nExperimental phase completed in %.2f seconds\n==\n", duration));
+            timingReport("EXPERIMENTAL phase", startTime);
         } catch (SQLException e) {
-
+            System.out.println(e);
+            System.exit(1);
         }
 
         report();
+    }
+
+
+    /**
+     * Convenience method to print elapsed time and current timestamp
+     */
+    protected void timingReport(String label, long startTime) {
+        long endTime = System.nanoTime();
+        double duration = (endTime - startTime) * 0.000000001;
+        System.out.println(String.format("\n=====\nElapsed time for %s : %.2f seconds", label, duration));
+
+        Date date = new Date();
+        System.out.println("Current time is: " + date.toString() + "\n=====");
     }
 
     /**
