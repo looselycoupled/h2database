@@ -29,9 +29,14 @@ bfssql:
 	javac -cp $(JARPATHS) ./src/BFSExperimentSQL.java
 	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL
 
+bfssql2:
+	javac -cp $(JARPATHS) ./src/BFSExperimentSQL2.java
+	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL2
+
+
 bfsh2:
 	javac -cp $(JARPATHS) ./src/BFSExperimentH2.java
-	java -cp $(JARPATHS) BFSExperimentH2
+	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentH2
 
 
 dfssql:
