@@ -31,7 +31,7 @@ public class BFSExperimentH2 extends Experiment
     private String dbName;
     private Session dbSession;
     private GraphSchema graphSchema = new GraphSchema("coauthor");
-    private Integer numIterations = 50;
+    private Integer numIterations = 100;
     private double totalTime = 0.0;
     private double loadTime;
 
@@ -78,13 +78,18 @@ public class BFSExperimentH2 extends Experiment
             int index = rand.nextInt(g.getVertices().size());
             Vertex v = g.getVertices().get(index);// get Amol
             startTime = System.nanoTime();
-            testBFS(g, v);
+            Integer nodesFound = testBFS(g, v);
             endTime = System.nanoTime();
             duration = (endTime - startTime) * 0.000000001;
             System.out.println(String.format("\n==\nBFS completed in %.2f seconds\n==\n", duration));
             totalTime += duration;
+
+            addResult(v.row.getValue(0).getInt(), duration, nodesFound);
         }
         //System.out.println(String.format("\n==\n50 runs of BFS completed in %.2f seconds\n==\n", totalTime));
+
+        // pause to take heap dump
+        // pause();
     }
 
     public void testStuff(Graph g) {
@@ -156,7 +161,7 @@ public class BFSExperimentH2 extends Experiment
     // }
 
 
-    public void testBFS(Graph g, Vertex rootNode) {
+    public Integer testBFS(Graph g, Vertex rootNode) {
         // run BFS
         Map<Vertex, Integer> distances = new HashMap<Vertex, Integer>();
         Queue queue = new LinkedList();
@@ -189,12 +194,17 @@ public class BFSExperimentH2 extends Experiment
         //         v.print();
         //     }
         // }
+
+        System.out.println(String.format("Total vertices found: %d", distances.size() - 1));
+
+        // return total vertices found (minus original vertex)
+        return distances.size() - 1;
     }
 
-    public void report() {
-        System.out.println(String.format("\n==\nGraph creation phase completed in %.2f seconds\n==\n", loadTime));
-        System.out.println(String.format("\n==\nBFS took an average time of %.2f time per iteration\n==\n", totalTime/numIterations));
-    }
+    // public void report() {
+    //     // System.out.println(String.format("\n==\nGraph creation phase completed in %.2f seconds\n==\n", loadTime));
+    //     System.out.println(String.format("\n==\nBFS took an average time of %.2f time per iteration\n==\n", totalTime/numIterations));
+    // }
 
     /**
      *

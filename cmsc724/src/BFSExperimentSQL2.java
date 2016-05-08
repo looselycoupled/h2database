@@ -24,7 +24,7 @@ import java.util.Queue;
  */
 public class BFSExperimentSQL2 extends Experiment
 {
-    public Integer numOfRuns = 5;
+    public Integer numOfRuns = 100;
     public Random generator = new Random();
     private HashMap<String, Integer> maxTableIdMap = new HashMap<String, Integer>();
 
@@ -71,16 +71,17 @@ public class BFSExperimentSQL2 extends Experiment
             Integer startID = randomIdFromTable("author");
             System.out.println(String.format("\n\n=====\nStarting new run with ID: %d\n=====", startID));
 
-            search(startID);
+            Integer nodesFound = search(startID);
 
             // report execution time
-            timingReport("this iteration", startTime);
+            double elapsedTime = timingReport("this iteration", startTime);
+            addResult(startID, elapsedTime, nodesFound);
         }
 
     }
 
 
-    public void search(Integer startId) {
+    public Integer search(Integer startId) {
         Map<Integer, Integer> distances = new HashMap<Integer, Integer>();
         Queue queue = new LinkedList();
         Integer totalFound = 0;
@@ -103,7 +104,7 @@ public class BFSExperimentSQL2 extends Experiment
         }
 
         System.out.println(String.format("Total nodes found: %d", totalFound));
-
+        return totalFound;
 
     }
 
