@@ -174,41 +174,6 @@ public class EdgeSchema {
     }
 
 
-    /**
-     * Public method to find the matching vertex at the end of an edge relationship.
-     *
-     * NOTE THAT THIS ASSUMES THE VERTEX HAS ONLY ONE EDGE OF THIS TYPE.
-     */
-    public Vertex getTargetVertex(Vertex sourceVertex) {
-        return null;
-        // Boolean init = true;
-        // int targetId = sourceVertex.getPropertyKeys().get("ID").getInt();
-        // Row row = null;
-
-        // // loop through joined tables
-        // for (JoinSchema j: joins) {
-        //     if (init) {
-        //         init = false;
-        //     } else {
-        //         targetId = row.getValue(getColumnPosition(j.sourceTable, j.sourceColumn)).getInt();
-        //     }
-
-        //     // loop through rows of joined tables looking for our target row
-        //     Cursor c = j.targetTable.getScanIndex(session).find(session, null, null);
-        //     while (c.next()) {
-        //         Row cursorRow = c.get();
-        //         if (cursorRow.getValue(getColumnPosition(j.targetTable, j.targetColumn)).getInt() == targetId) {
-        //             // we found our join row
-        //             row = cursorRow;
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // Table t = joins.get(joins.size() - 1).targetTable;
-        // Vertex endVertex = new Vertex(row, t.getColumns());
-        // return endVertex;
-    }
 
     public int getColumnPosition(Table table, String name) {
         return getColumnPosition(table, table.getColumn(name.toUpperCase()));

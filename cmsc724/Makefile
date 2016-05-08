@@ -8,10 +8,10 @@ JVMMEMOPTS = -Xms6144m -Xmx8192m
 
 .PHONY: clean build
 
-build:
+testdsl:
 	javac -cp $(JARPATHS) ./src/TestDSLGraphDefinition.java
 
-run:
+testgraphdef:
 	javac -cp $(JARPATHS) ./src/TestGraphDefinition.java
 	java -cp $(JARPATHS) TestGraphDefinition
 
@@ -29,9 +29,14 @@ bfssql:
 	javac -cp $(JARPATHS) ./src/BFSExperimentSQL.java
 	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL
 
+bfssql2:
+	javac -cp $(JARPATHS) ./src/BFSExperimentSQL2.java
+	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentSQL2
+
+
 bfsh2:
 	javac -cp $(JARPATHS) ./src/BFSExperimentH2.java
-	java -cp $(JARPATHS) BFSExperimentH2
+	java -cp $(JARPATHS) $(JVMMEMOPTS) BFSExperimentH2
 
 
 dfssql:

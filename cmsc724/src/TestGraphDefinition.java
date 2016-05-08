@@ -135,9 +135,6 @@ public class TestGraphDefinition {
             testCreateMultipleJoinEdge();
             testClassmatesEdge();
             testBFS();
-            //testGetAllVertices();
-            //testGetVerticesByAttribute();
-            //testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
         }
@@ -174,41 +171,6 @@ public class TestGraphDefinition {
         }
     }
 
-
-    // public void testGetVerticesByAttribute() throws Exception {
-    //     System.out.println("\nTEST: testGetVerticesByAttribute\n======================");
-    //     VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
-
-    //     List<Vertex> vertices = vsStudent.findByAttribute("name", "Allen Leis");
-    //     System.out.println(vertices.get(0).getAttributes().toString());
-
-    //     vertices = vsStudent.findByAttribute("id", 2);
-    //     System.out.println(vertices.get(0).getAttributes().toString());
-    // }
-
-    /**
-     * Tests the use of an edgeschema which traverses multiple joins.  Start
-     * with the Allen/student Vertex and get Room vertices that can be Found
-     * through the "hadClassInRoom" edge.
-     *
-     * This is just exploratory code and doesnt necessarily represent the final
-     * way of doing things.
-     */
-    // public void testEdgeWithMulitpleJoins() throws Exception {
-    //     System.out.println("\nTEST: Test Multiple Join\n======================");
-
-    //     // get the Allen vertex
-    //     VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
-    //     Vertex allen = vsStudent.findByAttribute("name", "Allen Leis").get(0);
-
-    //     EdgeSchema esHadClassInRoom = graphSchema.edgeSchemas.get("hadClassInRoom");
-    //     Vertex room = esHadClassInRoom.getTargetVertex(allen);
-    //     System.out.println("Source: " + allen.getAttributes().get("NAME"));
-    //     System.out.println("Target: " + room.getAttributes().toString());
-
-
-    // }
-
     public void testClassmatesEdge() {
         System.out.println("\nTEST: Creating a multiple join edge\n======================");
         // create all the vertices from the vertexSchemas and add them to the Graph
@@ -222,14 +184,7 @@ public class TestGraphDefinition {
                 // System.out.println("destination vertex is ");
                 dstV.print();
             }
-            // for (Edge e: v.getEdges(Direction.OUT)){
-            //     Vertex dstV = e.getDstVertex();
-            //     // System.out.println("source vertex is ");
-            //     v.print();
-            //     System.out.println(e.getLabel());
-            //     // System.out.println("destination vertex is ");
-            //     dstV.print();
-            // }
+
         }
     }
 
@@ -267,22 +222,6 @@ public class TestGraphDefinition {
                 System.out.println("edge type is " + e.getLabel());
                 System.out.println("destination vertex is ");
                 dstV.print();
-            }
-        }
-    }
-
-    public void testGetAllVertices() throws Exception {
-        System.out.println("\nTEST: Get all vertices\n======================");
-        Graph graph = new Graph();
-        // create all the vertices from the vertexSchemas and add them to the Graph
-        List<Vertex> vertices = new ArrayList<Vertex>();
-        for (VertexSchema schema: graphSchema.vertexSchemas.values()) {
-            graph.addVertices(schema.findAll());
-        }
-        // add the vertices to the Graph
-        for (Vertex v: graph.getVertices()) {
-            for (String key: v.getPropertyKeys()) {
-                System.out.println(v.getProperty(key).toString());
             }
         }
     }

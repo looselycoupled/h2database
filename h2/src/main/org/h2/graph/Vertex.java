@@ -30,7 +30,7 @@ public class Vertex {
     private boolean foundEdges = false;
 
     /**
-     * Vertex needs an id, a reference to the underlying data, 
+     * Vertex needs an id, a reference to the underlying data,
      */
     public Vertex(Object id, Row row, VertexSchema schema) {
         this.row = row;
@@ -125,43 +125,5 @@ public class Vertex {
             System.out.println(key + ": " + getProperty(key).toString());
         }
     }
-
-    // Old code that should be implemented by methods defined in blueprints
-    // public Value[] getValues() {
-    //     return row.getValueList();
-    // }
-
-    // public HashMap<String, Value> getAttributes() {
-    //     return attributesMap;
-    // }
-
-    // public String toString() {
-    //     return "<Vertex> ID: " + row.getKey();
-    // }
-
-    // public String toJSON() throws Exception {
-    //     throw new Exception("Not Implemented");
-    // }
-
-    
-
-
-
-    /**
-     * Methods expected by the interface that we don't plan to implement
-     */
-
-    // public VertexQuery query() {
-    //     return null;
-    // }
-
-    // public void remove() {}
-
-    // public <T> T removeProperty(String key){
-    //     return null;
-    // }
-
-    // public void setProperty(String key, Object value){}
-
 
 }

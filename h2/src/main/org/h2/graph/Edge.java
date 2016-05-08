@@ -66,22 +66,6 @@ public class Edge {
         }
     }
 
-    // public Value[] getValues() {
-    //     return row.getValueList();
-    // }
-
-    // public HashMap<String, Value> getAttributes() throws Exception {
-    //     throw new Exception("Not Implemented");
-    // }
-
-    // public String toString() {
-    //   return "<Edge> ID: " + row.getKey();
-    // }
-
-    // public String toJSON() throws Exception {
-    //     throw new Exception("Not Implemented");
-    // }
-
     /**
      * Methods required by the interface that we don't plan to implement
      */
