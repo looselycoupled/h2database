@@ -8,10 +8,10 @@ JVMMEMOPTS = -Xms6144m -Xmx8192m
 
 .PHONY: clean build
 
-build:
+testdsl:
 	javac -cp $(JARPATHS) ./src/TestDSLGraphDefinition.java
 
-run:
+testgraphdef:
 	javac -cp $(JARPATHS) ./src/TestGraphDefinition.java
 	java -cp $(JARPATHS) TestGraphDefinition
 

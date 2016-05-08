@@ -64,24 +64,11 @@ public class TestDSLGraphDefinition {
             String tablename = parts[0].trim();
             String label = parts[1].trim().split("!")[0];
 
-            /*
-            //Node attributes are here use them
-            if(parts[1].trim().split("!").length>1){
-                String[] attributes = parts[1].trim().split("!")[1].split(",");
-                   for(String att:attributes){
-                        System.out.print(att+" , ");
-                    }
-            }
-            */
-
             //Constructing the node schema
-
             Table t = db.getTableOrViewByName(tablename).get(0);
             VertexSchema vSchema = new VertexSchema(dbSession, t, label);
 
             vSchemaList.add(vSchema);
-
-
         }
 
 
@@ -128,21 +115,6 @@ public class TestDSLGraphDefinition {
 					new ArrayList<String>()
                 );
             }
-
-
-            /*
-            //Add edge attributes to
-
-            //Retrieved as tablename, attribute
-
-            if(attrs.split(",").length>1){
-                for(String val:attrs.split(",")){
-                    String table = val.split("\\+")[0].trim();
-                    String att = val.split("\\+")[1].trim();
-                    System.out.println(table+ " "+ att);
-                }
-            }
-            */
 
 
             eSchemaList.add(eSchema);
@@ -215,49 +187,12 @@ public class TestDSLGraphDefinition {
         try {
             testCreateSingleJoinEdge();
             testCreateMultipleJoinEdge();
-            //testGetAllVertices();
-            // testGetVerticesByAttribute();
-            // testEdgeWithMulitpleJoins();
         } catch (Exception e) {
             System.out.println("FAIL: " + e.toString());
         }
     }
 
-    /*
-     public void testGetVerticesByAttribute() throws Exception {
-         System.out.println("\nTEST: testGetVerticesByAttribute\n======================");
-         VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
 
-         List<Vertex> vertices = vsStudent.findByAttribute("name", "Allen Leis");
-         System.out.println(vertices.get(0).getAttributes().toString());
-
-         vertices = vsStudent.findByAttribute("id", 2);
-         System.out.println(vertices.get(0).getAttributes().toString());
-    }
-    */
-
-    /**
-     * Tests the use of an edgeschema which traverses multiple joins.  Start
-     * with the Allen/student Vertex and get Room vertices that can be Found
-     * through the "hadClassInRoom" edge.
-     *
-     * This is just exploratory code and doesnt necessarily represent the final
-     * way of doing things.
-     */
-    /*
-     public void testEdgeWithMulitpleJoins() throws Exception {
-         System.out.println("\nTEST: Test Multiple Join\n======================");
-
-         // get the Allen vertex
-         VertexSchema vsStudent = graphSchema.vertexSchemas.get("student");
-         Vertex allen = vsStudent.findByAttribute("name", "Allen Leis").get(0);
-
-         EdgeSchema esHadClassInRoom = graphSchema.edgeSchemas.get("hadClassInRoom");
-         Vertex room = esHadClassInRoom.getTargetVertex(allen);
-         System.out.println("Source: " + allen.getAttributes().get("NAME"));
-         System.out.println("Target: " + room.getAttributes().toString());
-    }
-    */
 
     public void testCreateMultipleJoinEdge() {
         System.out.println("\nTEST: Creating a multiple join edge\n======================");
@@ -299,21 +234,6 @@ public class TestDSLGraphDefinition {
         }
     }
 
-    public void testGetAllVertices() throws Exception {
-        System.out.println("\nTEST: Get all vertices\n======================");
-        Graph graph = new Graph();
-        // create all the vertices from the vertexSchemas and add them to the Graph
-        List<Vertex> vertices = new ArrayList<Vertex>();
-        for (VertexSchema schema: graphSchema.vertexSchemas.values()) {
-            graph.addVertices(schema.findAll());
-        }
-        // add the vertices to the Graph
-        for (Vertex v: graph.getVertices()) {
-            for (String key: v.getPropertyKeys()) {
-                System.out.println(v.getProperty(key).toString());
-            }
-        }
-    }
 
 
     public void start() throws Exception {
