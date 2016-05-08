@@ -1,6 +1,3 @@
 *.iml
 .idea
 *.class
-authors.csv
-publications.csv
-authorpublications.csv
