@@ -1,0 +1,17 @@
+#base table names are
+#Author(id,name)
+#AuthorPub(aid,pid)
+#Conferences(id,name,year,location)
+#Publications(id,title,cid)
+
+#specifies the author is the node type
+#specifies name is the node attribute
+
+Nodes(author:name) :- Author(id,name)
+
+#specifies that coauthor is the edge type (Edge Label)
+#edge attribute is publication id - pid
+
+Edges(coauthored-pid) :- AuthorPub(id1, pid), AuthorPub(id2,pid)
+
+Graph(coauthor) :- Nodes(author), Edges(coauthored)
