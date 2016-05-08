@@ -1,0 +1,1025 @@
+javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/BFSExperimentH2.java
+java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" -Xms6144m -Xmx8192m BFSExperimentH2
+=====
+SYSTEM START
+Current time is: Sat May 07 01:54:15 EDT 2016
+=====
+
+=====
+Elapsed time for SETUP phase : 0.66 seconds
+Current time is: Sat May 07 01:54:16 EDT 2016
+=====
+
+==
+Graph creation phase completed in 0.02 seconds
+==
+
+root node is 
+ID: 826
+NAME: 'Zvi M. Kedem'
+Total vertices found: 859
+
+==
+BFS completed in 203.34 seconds
+==
+
+root node is 
+ID: 312
+NAME: 'Agustin Valverde'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 992
+NAME: 'Arash Farzan'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 534
+NAME: 'William E. Wright'
+Total vertices found: 1
+
+==
+BFS completed in 0.07 seconds
+==
+
+root node is 
+ID: 986
+NAME: 'H. T. Kung'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 55
+NAME: 'Ursula Goltz'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 400
+NAME: 'Johannes Rohrich'
+Total vertices found: 0
+
+==
+BFS completed in 0.04 seconds
+==
+
+root node is 
+ID: 130
+NAME: 'Robert T. Moenck'
+Total vertices found: 0
+
+==
+BFS completed in 0.01 seconds
+==
+
+root node is 
+ID: 618
+NAME: 'Friedhelm Meyer auf der Heide'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 678
+NAME: 'A. J. Kfoury'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 884
+NAME: 'Mohammad Reza Mousavi'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 631
+NAME: 'M. W. Du'
+Total vertices found: 1
+
+==
+BFS completed in 0.10 seconds
+==
+
+root node is 
+ID: 801
+NAME: 'Ashok K. Chandra'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 801
+NAME: 'Ashok K. Chandra'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 901
+NAME: 'Bing-Chao Huang'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 799
+NAME: 'Jean Vicard'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 110
+NAME: 'Alan Fekete'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 949
+NAME: 'Betti Venneri'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 449
+NAME: 'Juan Ignacio Perna'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 515
+NAME: 'Donna J. Brown'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 91
+NAME: 'George Leih'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 756
+NAME: 'Surya Danusaputro Liman'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 598
+NAME: 'Markku Tamminen'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 751
+NAME: 'Anders Thorup'
+Total vertices found: 1
+
+==
+BFS completed in 0.02 seconds
+==
+
+root node is 
+ID: 837
+NAME: 'Esko Ukkonen'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 842
+NAME: 'Jifeng He'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 378
+NAME: 'Amit Chakrabarti'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 806
+NAME: 'Gokhan Sahin'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 160
+NAME: 'Markus Buttner'
+Total vertices found: 0
+
+==
+BFS completed in 0.02 seconds
+==
+
+root node is 
+ID: 32
+NAME: 'Luc Devroye'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 447
+NAME: 'Hsien-Kuei Hwang'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 747
+NAME: 'Joseph A. Bannister'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 63
+NAME: 'Alexandre David'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 243
+NAME: 'Bernhard Mescheder'
+Total vertices found: 0
+
+==
+BFS completed in 0.02 seconds
+==
+
+root node is 
+ID: 890
+NAME: 'Paritosh K. Pandya'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 694
+NAME: 'Bernard Lidicky'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 842
+NAME: 'Jifeng He'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 375
+NAME: 'Ismo Hakala'
+Total vertices found: 1
+
+==
+BFS completed in 0.14 seconds
+==
+
+root node is 
+ID: 650
+NAME: 'Marta Pietkiewicz-Koutny'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 16
+NAME: 'Victor Khomenko'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 776
+NAME: 'Anthony J. Fisher'
+Total vertices found: 0
+
+==
+BFS completed in 0.01 seconds
+==
+
+root node is 
+ID: 829
+NAME: 'Susan M. Merritt'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 341
+NAME: 'Raul J. Ramirez'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 899
+NAME: 'Remco Loos'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 99
+NAME: 'Rudolf Berghammer'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 510
+NAME: 'Stephane Coulondre'
+Total vertices found: 0
+
+==
+BFS completed in 0.08 seconds
+==
+
+root node is 
+ID: 478
+NAME: 'Yiwei Jiang'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 432
+NAME: 'Md. Enamul Kabir'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 732
+NAME: 'D. T. Lee'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 619
+NAME: 'Michael G. Lamoureux'
+Total vertices found: 1
+
+==
+BFS completed in 0.14 seconds
+==
+
+root node is 
+ID: 27
+NAME: 'M. Italiani'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 78
+NAME: 'Thomas N. Hibbard'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 411
+NAME: 'Hans-Anton Rollik'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 219
+NAME: 'Xinxin Liu'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 211
+NAME: 'Angelo Monti'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 900
+NAME: 'Florin Manea'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 16
+NAME: 'Victor Khomenko'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 640
+NAME: 'Anthony E. Krzesinski'
+Total vertices found: 1
+
+==
+BFS completed in 0.14 seconds
+==
+
+root node is 
+ID: 741
+NAME: 'Jean-Raymond Gagne'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 979
+NAME: 'Chuzo Iwamoto'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 512
+NAME: 'Nobuki Tokura'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 782
+NAME: 'Yong Zhou'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 427
+NAME: 'B. Ratoandromanana'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 283
+NAME: 'Flavio Corradini'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 543
+NAME: 'Levent V. Orman'
+Total vertices found: 0
+
+==
+BFS completed in 0.12 seconds
+==
+
+root node is 
+ID: 289
+NAME: 'Peter R. J. Asveld'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 902
+NAME: 'Michael A. Langston'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 424
+NAME: 'Maurice Bruynooghe'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 676
+NAME: 'Cristina Tirnauca'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 778
+NAME: 'Bernd Puchala'
+Total vertices found: 1
+
+==
+BFS completed in 0.04 seconds
+==
+
+root node is 
+ID: 363
+NAME: 'Ina Schaefer'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 609
+NAME: 'Cheryl E. Praeger'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 914
+NAME: 'Nabil Lasmar'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 93
+NAME: 'Pradip K. Srimani'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 466
+NAME: 'C. Keleman'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 934
+NAME: 'Bernd Becker'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 554
+NAME: 'Peter Schlichtiger'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 570
+NAME: 'Pascal Caron'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 743
+NAME: 'Jen-Tse Wang'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 483
+NAME: 'Rada Chirkova'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 510
+NAME: 'Stephane Coulondre'
+Total vertices found: 0
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 670
+NAME: 'Yehoshua Sagiv'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 777
+NAME: 'Wladimir Fridman'
+Total vertices found: 1
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 37
+NAME: 'Demetres D. Kouvatsos'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 233
+NAME: 'Qui Hoon Choo'
+Total vertices found: 1
+
+==
+BFS completed in 0.25 seconds
+==
+
+root node is 
+ID: 30
+NAME: 'Christian Stahl'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 784
+NAME: 'Alexander Tuzhilin'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 375
+NAME: 'Ismo Hakala'
+Total vertices found: 1
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 794
+NAME: 'Uwe Nestmann'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 224
+NAME: 'Michael Brand'
+Total vertices found: 0
+
+==
+BFS completed in 0.08 seconds
+==
+
+root node is 
+ID: 501
+NAME: 'Carlos Caleiro'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 977
+NAME: 'Axel Legay'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 63
+NAME: 'Alexandre David'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 389
+NAME: 'Thomas Lehmann'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 273
+NAME: 'Tjalling Gelsema'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 926
+NAME: 'Rolf Klein'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 757
+NAME: 'Stefan Kahrs'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 111
+NAME: 'Teuvo Laurinolli'
+Total vertices found: 0
+
+==
+BFS completed in 0.01 seconds
+==
+
+root node is 
+ID: 967
+NAME: 'Peter D. Welch'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+root node is 
+ID: 97
+NAME: 'Piero R. Torrigiani'
+Total vertices found: 859
+
+==
+BFS completed in 0.00 seconds
+==
+
+
+=====
+Elapsed time for EXPERIMENTAL phase : 204.79 seconds
+Current time is: Sat May 07 01:57:41 EDT 2016
+=====
+
+=====
+REPORT
+=====
+826,203.34,859
+312,0.00,859
+992,0.00,859
+534,0.07,1
+986,0.00,859
+55,0.00,859
+400,0.04,0
+130,0.01,0
+618,0.00,859
+678,0.00,859
+884,0.00,859
+631,0.10,1
+801,0.00,859
+801,0.00,859
+901,0.00,859
+799,0.00,859
+110,0.00,859
+949,0.00,859
+449,0.00,859
+515,0.00,859
+91,0.00,859
+756,0.00,859
+598,0.00,859
+751,0.02,1
+837,0.00,859
+842,0.00,859
+378,0.00,859
+806,0.00,859
+160,0.02,0
+32,0.00,859
+447,0.00,859
+747,0.00,859
+63,0.00,859
+243,0.02,0
+890,0.00,859
+694,0.00,859
+842,0.00,859
+375,0.14,1
+650,0.00,859
+16,0.00,859
+776,0.01,0
+829,0.00,859
+341,0.00,859
+899,0.00,859
+99,0.00,859
+510,0.08,0
+478,0.00,859
+432,0.00,859
+732,0.00,859
+619,0.14,1
+27,0.00,859
+78,0.00,859
+411,0.00,859
+219,0.00,859
+211,0.00,859
+900,0.00,859
+16,0.00,859
+640,0.14,1
+741,0.00,859
+979,0.00,859
+512,0.00,859
+782,0.00,859
+427,0.00,859
+283,0.00,859
+543,0.12,0
+289,0.00,859
+902,0.00,859
+424,0.00,859
+676,0.00,859
+778,0.04,1
+363,0.00,859
+609,0.00,859
+914,0.00,859
+93,0.00,859
+466,0.00,859
+934,0.00,859
+554,0.00,859
+570,0.00,859
+743,0.00,859
+483,0.00,859
+510,0.00,0
+670,0.00,859
+777,0.00,1
+37,0.00,859
+233,0.25,1
+30,0.00,859
+784,0.00,859
+375,0.00,1
+794,0.00,859
+224,0.08,0
+501,0.00,859
+977,0.00,859
+63,0.00,859
+389,0.00,859
+273,0.00,859
+926,0.00,859
+757,0.00,859
+111,0.01,0
+967,0.00,859
+97,0.00,859

@@ -1,0 +1,1220 @@
+javac -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" ./src/BFSExperimentSQL2.java
+java -cp ".:./src:../h2/bin/h2-1.4.191.jar:../h2/ext/blueprints-core-2.6.0.jar" -Xms6144m -Xmx8192m BFSExperimentSQL2
+=====
+SYSTEM START
+Current time is: Fri May 06 22:38:24 EDT 2016
+=====
+
+=====
+Elapsed time for SETUP phase : 0.68 seconds
+Current time is: Fri May 06 22:38:25 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 23
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 25.67 seconds
+Current time is: Fri May 06 22:38:51 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 233
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 22:38:51 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 812
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.72 seconds
+Current time is: Fri May 06 22:39:14 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 819
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.91 seconds
+Current time is: Fri May 06 22:39:36 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 540
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.59 seconds
+Current time is: Fri May 06 22:39:57 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 974
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.98 seconds
+Current time is: Fri May 06 22:40:19 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 186
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.49 seconds
+Current time is: Fri May 06 22:40:42 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 48
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.60 seconds
+Current time is: Fri May 06 22:41:03 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 817
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.93 seconds
+Current time is: Fri May 06 22:41:25 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 568
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.02 seconds
+Current time is: Fri May 06 22:41:47 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 312
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.27 seconds
+Current time is: Fri May 06 22:42:09 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 687
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.36 seconds
+Current time is: Fri May 06 22:42:31 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 577
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.95 seconds
+Current time is: Fri May 06 22:42:53 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 616
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.02 seconds
+Current time is: Fri May 06 22:42:53 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 696
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.01 seconds
+Current time is: Fri May 06 22:43:15 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 521
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 22:43:15 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 648
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.89 seconds
+Current time is: Fri May 06 22:43:37 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 797
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.70 seconds
+Current time is: Fri May 06 22:43:58 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 68
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.94 seconds
+Current time is: Fri May 06 22:44:20 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 473
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.06 seconds
+Current time is: Fri May 06 22:44:42 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 887
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.76 seconds
+Current time is: Fri May 06 22:45:04 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 315
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.05 seconds
+Current time is: Fri May 06 22:45:26 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 619
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 22:45:26 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 956
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.97 seconds
+Current time is: Fri May 06 22:45:48 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 521
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 22:45:48 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 375
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.06 seconds
+Current time is: Fri May 06 22:45:48 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 192
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.05 seconds
+Current time is: Fri May 06 22:46:10 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 758
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.63 seconds
+Current time is: Fri May 06 22:46:32 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 992
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.18 seconds
+Current time is: Fri May 06 22:46:54 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 853
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.02 seconds
+Current time is: Fri May 06 22:46:54 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 256
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.87 seconds
+Current time is: Fri May 06 22:47:16 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 737
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.02 seconds
+Current time is: Fri May 06 22:47:16 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 657
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 22:47:16 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 634
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.15 seconds
+Current time is: Fri May 06 22:47:38 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 64
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.28 seconds
+Current time is: Fri May 06 22:48:00 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 104
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.29 seconds
+Current time is: Fri May 06 22:48:22 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 425
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.06 seconds
+Current time is: Fri May 06 22:48:44 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 22
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.75 seconds
+Current time is: Fri May 06 22:49:06 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 185
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.76 seconds
+Current time is: Fri May 06 22:49:27 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 633
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.25 seconds
+Current time is: Fri May 06 22:49:50 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 643
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.91 seconds
+Current time is: Fri May 06 22:50:12 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 81
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.57 seconds
+Current time is: Fri May 06 22:50:33 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 121
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.75 seconds
+Current time is: Fri May 06 22:50:55 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 201
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.40 seconds
+Current time is: Fri May 06 22:51:17 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 119
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.96 seconds
+Current time is: Fri May 06 22:51:39 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 158
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.32 seconds
+Current time is: Fri May 06 22:52:01 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 591
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.03 seconds
+Current time is: Fri May 06 22:52:23 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 242
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.13 seconds
+Current time is: Fri May 06 22:52:45 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 240
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.83 seconds
+Current time is: Fri May 06 22:53:07 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 252
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.58 seconds
+Current time is: Fri May 06 22:53:28 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 275
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.02 seconds
+Current time is: Fri May 06 22:53:50 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 55
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.36 seconds
+Current time is: Fri May 06 22:54:13 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 681
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.02 seconds
+Current time is: Fri May 06 22:54:13 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 113
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.79 seconds
+Current time is: Fri May 06 22:54:34 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 319
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.77 seconds
+Current time is: Fri May 06 22:54:56 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 233
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 22:54:56 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 997
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.98 seconds
+Current time is: Fri May 06 22:55:18 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 370
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.16 seconds
+Current time is: Fri May 06 22:55:40 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 318
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.30 seconds
+Current time is: Fri May 06 22:56:02 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 242
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.05 seconds
+Current time is: Fri May 06 22:56:24 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 475
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.07 seconds
+Current time is: Fri May 06 22:56:46 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 438
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.12 seconds
+Current time is: Fri May 06 22:57:08 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 384
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.59 seconds
+Current time is: Fri May 06 22:57:29 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 182
+=====
+Total nodes found: 3
+
+=====
+Elapsed time for this iteration : 0.11 seconds
+Current time is: Fri May 06 22:57:30 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 786
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.18 seconds
+Current time is: Fri May 06 22:57:52 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 953
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.21 seconds
+Current time is: Fri May 06 22:58:14 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 79
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.02 seconds
+Current time is: Fri May 06 22:58:14 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 457
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.04 seconds
+Current time is: Fri May 06 22:58:14 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 359
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.90 seconds
+Current time is: Fri May 06 22:58:36 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 339
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.79 seconds
+Current time is: Fri May 06 22:58:58 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 897
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.99 seconds
+Current time is: Fri May 06 22:59:20 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 803
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.13 seconds
+Current time is: Fri May 06 22:59:42 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 912
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.65 seconds
+Current time is: Fri May 06 23:00:03 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 368
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.21 seconds
+Current time is: Fri May 06 23:00:26 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 610
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.94 seconds
+Current time is: Fri May 06 23:00:48 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 480
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.18 seconds
+Current time is: Fri May 06 23:01:10 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 243
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.02 seconds
+Current time is: Fri May 06 23:01:10 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 179
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.45 seconds
+Current time is: Fri May 06 23:01:31 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 525
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.39 seconds
+Current time is: Fri May 06 23:01:54 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 189
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.11 seconds
+Current time is: Fri May 06 23:02:16 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 112
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.09 seconds
+Current time is: Fri May 06 23:02:38 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 355
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.47 seconds
+Current time is: Fri May 06 23:02:59 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 407
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.19 seconds
+Current time is: Fri May 06 23:03:21 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 437
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.02 seconds
+Current time is: Fri May 06 23:03:44 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 247
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.78 seconds
+Current time is: Fri May 06 23:04:05 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 848
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.03 seconds
+Current time is: Fri May 06 23:04:05 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 744
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.75 seconds
+Current time is: Fri May 06 23:04:27 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 137
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.25 seconds
+Current time is: Fri May 06 23:04:49 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 440
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.98 seconds
+Current time is: Fri May 06 23:05:11 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 414
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.55 seconds
+Current time is: Fri May 06 23:05:33 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 798
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.98 seconds
+Current time is: Fri May 06 23:05:55 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 974
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.30 seconds
+Current time is: Fri May 06 23:06:17 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 702
+=====
+Total nodes found: 1
+
+=====
+Elapsed time for this iteration : 0.05 seconds
+Current time is: Fri May 06 23:06:17 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 608
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.98 seconds
+Current time is: Fri May 06 23:06:39 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 464
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.48 seconds
+Current time is: Fri May 06 23:07:01 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 279
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.02 seconds
+Current time is: Fri May 06 23:07:23 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 70
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.03 seconds
+Current time is: Fri May 06 23:07:23 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 856
+=====
+Total nodes found: 0
+
+=====
+Elapsed time for this iteration : 0.03 seconds
+Current time is: Fri May 06 23:07:23 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 404
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 22.38 seconds
+Current time is: Fri May 06 23:07:45 EDT 2016
+=====
+
+
+=====
+Starting new run with ID: 315
+=====
+Total nodes found: 859
+
+=====
+Elapsed time for this iteration : 21.91 seconds
+Current time is: Fri May 06 23:08:07 EDT 2016
+=====
+
+=====
+Elapsed time for EXPERIMENTAL phase : 1781.88 seconds
+Current time is: Fri May 06 23:08:07 EDT 2016
+=====
+
+=====
+REPORT
+=====
+23,25.67,859
+233,0.05,1
+812,22.72,859
+819,21.91,859
+540,21.59,859
+974,21.98,859
+186,22.49,859
+48,21.60,859
+817,21.93,859
+568,22.02,859
+312,22.27,859
+687,21.36,859
+577,21.95,859
+616,0.02,0
+696,22.01,859
+521,0.05,1
+648,21.89,859
+797,21.70,859
+68,21.94,859
+473,22.06,859
+887,21.76,859
+315,22.05,859
+619,0.05,1
+956,21.97,859
+521,0.05,1
+375,0.06,1
+192,22.05,859
+758,21.63,859
+992,22.18,859
+853,0.02,0
+256,21.87,859
+737,0.02,0
+657,0.05,1
+634,22.15,859
+64,21.28,859
+104,22.29,859
+425,22.06,859
+22,21.75,859
+185,21.76,859
+633,22.25,859
+643,21.91,859
+81,21.57,859
+121,21.75,859
+201,22.40,859
+119,21.96,859
+158,21.32,859
+591,22.03,859
+242,22.13,859
+240,21.83,859
+252,21.58,859
+275,22.02,859
+55,22.36,859
+681,0.02,0
+113,21.79,859
+319,21.77,859
+233,0.05,1
+997,21.98,859
+370,22.16,859
+318,21.30,859
+242,22.05,859
+475,22.07,859
+438,22.12,859
+384,21.59,859
+182,0.11,3
+786,22.18,859
+953,22.21,859
+79,0.02,0
+457,0.04,0
+359,21.90,859
+339,21.79,859
+897,21.99,859
+803,22.13,859
+912,21.65,859
+368,22.21,859
+610,21.94,859
+480,22.18,859
+243,0.02,0
+179,21.45,859
+525,22.39,859
+189,22.11,859
+112,22.09,859
+355,21.47,859
+407,22.19,859
+437,22.02,859
+247,21.78,859
+848,0.03,0
+744,21.75,859
+137,22.25,859
+440,21.98,859
+414,21.55,859
+798,21.98,859
+974,22.30,859
+702,0.05,1
+608,21.98,859
+464,21.48,859
+279,22.02,859
+70,0.03,0
+856,0.03,0
+404,22.38,859
+315,21.91,859
